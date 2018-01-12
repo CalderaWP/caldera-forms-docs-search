@@ -6,7 +6,16 @@ export class Catdera extends React.Component {
         this.state = {
             width: props.hasOwnProperty('width' ) ? props.width : '50px',
             height: props.hasOwnProperty('height' ) ? props.height : 'auto',
-            className: props.hasOwnProperty( 'extraClass' ) ? `${props.extraClass} catdera-logo` : 'catdera-logo'
+            className: props.spin  ? 'catdera-logo spin-loader' : 'catdera-logo'
+        };
+
+
+
+    }
+
+    componentDidMount(){
+        if( this.props.spin){
+            this.state.className = 'catdera-logo spin-loader';
         }
     }
     render(){

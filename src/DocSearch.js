@@ -1,15 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import {debounce} from 'throttle-debounce';
-import { Grid, Row, Col, Form, FormGroup } from 'react-bootstrap';
-import  { Catdera }  from "./Components/Catdera";
-import { AddonCategory } from './Components/AddonCategory';
+import {Grid, Row, Col, Form, FormGroup} from 'react-bootstrap';
+import {Catdera} from "./Components/Catdera";
+import {AddonCategory} from './Components/AddonCategory';
 import {Keyword} from "./Components/Keyword";
 import {Results} from "./Components/Results";
 import {Pagination} from "./Components/Pagination";
 
 import ReactGA from 'react-ga';
-import { cacheAdapterEnhancer } from 'axios-extensions';
+import {cacheAdapterEnhancer} from 'axios-extensions';
 import {Category} from "./Components/Category";
 
 const GAUA = 'UA-59323601-1';
@@ -37,74 +37,74 @@ class DocSearch extends React.Component {
             },
             boxesChecked: {
                 actions: false,
-                addOns:false,
+                addOns: false,
                 filters: false,
-                fieldTypes:false,
+                fieldTypes: false,
                 pro: false,
                 gettingStarted: true,
                 processors: false,
                 shortcode: false,
-                developerAPI:false,
-                entries:false
+                developerAPI: false,
+                entries: false
             },
-            categories : {
+            categories: {
                 actions: 180,
                 addOns: 171,
                 filters: 170,
-                fieldTypes:178,
+                fieldTypes: 178,
                 pro: 459,
                 gettingStarted: 270,
                 processors: 254,
                 shortcode: 409,
-                entries:269,
-                developerAPI:184,
+                entries: 269,
+                developerAPI: 184,
                 braintree: 215,
-                styleCustomizer:496,
+                styleCustomizer: 496,
                 calderaForms: 141,
                 entryLimiter: 522,
-                translations:491,
-                users:159,
-                zapier:450,
-                clarity:138,
+                translations: 491,
+                users: 159,
+                zapier: 450,
+                clarity: 138,
                 connectedForms: 212,
-                edd:233,
-                easyPods:139,
+                edd: 233,
+                easyPods: 139,
                 easyQueries: 204,
-                geolocation:156,
+                geolocation: 156,
                 mailChimp: 181,
-                stripe:158,
-                paypalExpress:183,
-                authNet:217,
-                runAction:161,
-                youTube:451,
-                convertKit:254,
-                googleAnalytics:393,
-                members:259,
-                thirdParty:391,
+                stripe: 158,
+                paypalExpress: 183,
+                authNet: 217,
+                runAction: 161,
+                youTube: 451,
+                convertKit: 254,
+                googleAnalytics: 393,
+                members: 259,
+                thirdParty: 391,
             },
             loading: false,
             addOnsChecked: {
                 braintree: false,
-                styleCustomizer:false,
-                easyQueries:false,
-                translations:false,
-                users:false,
-                zapier:false,
+                styleCustomizer: false,
+                easyQueries: false,
+                translations: false,
+                users: false,
+                zapier: false,
                 entryLimiter: false,
-                clarity:false,
+                clarity: false,
                 connectedForms: false,
-                edd:false,
-                easyPods:false,
-                geolocation:false,
+                edd: false,
+                easyPods: false,
+                geolocation: false,
                 mailChimp: false,
-                paypalExpress:false,
-                stripe:false,
-                authNet:false,
-                runAction:false,
-                youTube:false,
-                convertKit:false,
-                googleAnalytics:false,
-                members:false,
+                paypalExpress: false,
+                stripe: false,
+                authNet: false,
+                runAction: false,
+                youTube: false,
+                convertKit: false,
+                googleAnalytics: false,
+                members: false,
 
             }
         };
@@ -131,176 +131,176 @@ class DocSearch extends React.Component {
         this.setPageOne = this.setPageOne.bind(this);
     }
 
-    handleNextPage(){
+    handleNextPage() {
         let nextPage = this.state.page + 1;
-        if( nextPage <= this.state.totalPages ){
-            this.setState({page:nextPage});
+        if (nextPage <= this.state.totalPages) {
+            this.setState({page: nextPage});
             this.search();
         }
     }
 
-    handlePrevPage(){
+    handlePrevPage() {
         let prevPage = this.state.page - 1;
-        if( prevPage > 0 ){
-            this.setState({page:prevPage});
+        if (prevPage > 0) {
+            this.setState({page: prevPage});
             this.search();
         }
     }
 
-    setPageOne(){
-        this.setState({page:1});
+    setPageOne() {
+        this.setState({page: 1});
     }
 
 
-    handleChangeKeyword(event){
+    handleChangeKeyword(event) {
         this.setPageOne();
         let q = this.state.query;
         q.s = event.target.value;
-        this.setState( {query:q});
+        this.setState({query: q});
         this.search();
     }
 
-    toggleAddon(addOnIdBeingChecked){
+    toggleAddon(addOnIdBeingChecked) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
         boxesChecked.gettingStarted = false;
-        this.setState( {boxesChecked:boxesChecked});
+        this.setState({boxesChecked: boxesChecked});
         this.toggleOffOtherAddons(addOnIdBeingChecked);
         this.search();
     }
 
-    toggleAllAddonsOff(){
+    toggleAllAddonsOff() {
         this.setPageOne();
         let boxesChecked = this.state.addOnsChecked;
-        Object.keys( boxesChecked ).forEach( (addOn ) => {
+        Object.keys(boxesChecked).forEach((addOn) => {
             boxesChecked[addOn] = false;
         });
 
-        this.setState({addOnsChecked:boxesChecked})
+        this.setState({addOnsChecked: boxesChecked})
     }
 
-    toggleOffOtherAddons(exceptCategoryId){
+    toggleOffOtherAddons(exceptCategoryId) {
         this.setPageOne();
-        let exceptCategory= null;
+        let exceptCategory = null;
 
         for (let addOnName in this.state.categories) {
             let addOnId = this.state.categories[addOnName];
-            if( addOnId === exceptCategoryId ){
+            if (addOnId === exceptCategoryId) {
                 exceptCategory = addOnName;
             }
         }
 
         let boxesChecked = this.state.addOnsChecked;
-        const setExceptTrue = ! boxesChecked[exceptCategory];
-        Object.keys( boxesChecked ).forEach( (addOn ) => {
+        const setExceptTrue = !boxesChecked[exceptCategory];
+        Object.keys(boxesChecked).forEach((addOn) => {
             boxesChecked[addOn] = false;
         });
 
 
-        if ( setExceptTrue ) {
+        if (setExceptTrue) {
             boxesChecked[exceptCategory] = true;
         }
 
-        this.setState({addOnsChecked:boxesChecked})
+        this.setState({addOnsChecked: boxesChecked})
     }
 
-    toggleAction(){
+    toggleAction() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
-        boxesChecked.actions = ! boxesChecked.actions;
-        this.setState( {boxesChecked:boxesChecked});
+        boxesChecked.actions = !boxesChecked.actions;
+        this.setState({boxesChecked: boxesChecked});
         this.search();
     }
 
-    toggleFilters(){
+    toggleFilters() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
-        boxesChecked.filters = ! boxesChecked.filters;
-        this.setState( {boxesChecked:boxesChecked});
+        boxesChecked.filters = !boxesChecked.filters;
+        this.setState({boxesChecked: boxesChecked});
         this.search();
 
     }
 
-    toggleAddons(){
+    toggleAddons() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
-        boxesChecked.addOns = ! boxesChecked.addOns;
-        this.setState( {boxesChecked:boxesChecked});
+        boxesChecked.addOns = !boxesChecked.addOns;
+        this.setState({boxesChecked: boxesChecked});
         this.search();
     }
 
-    togglePro(){
+    togglePro() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
-        boxesChecked.pro = ! boxesChecked.pro;
-        this.setState( {boxesChecked:boxesChecked});
+        boxesChecked.pro = !boxesChecked.pro;
+        this.setState({boxesChecked: boxesChecked});
         this.search();
     }
 
-    toggleGettingStarted(){
+    toggleGettingStarted() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
-        boxesChecked.gettingStarted = ! boxesChecked.gettingStarted;
-        this.setState( {boxesChecked:boxesChecked});
+        boxesChecked.gettingStarted = !boxesChecked.gettingStarted;
+        this.setState({boxesChecked: boxesChecked});
         this.search();
     }
 
-    toggleShortcode(event){
+    toggleShortcode(event) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
-        boxesChecked.shortcode = ! boxesChecked.shortcode;
-        this.setState( {boxesChecked:boxesChecked});
+        boxesChecked.shortcode = !boxesChecked.shortcode;
+        this.setState({boxesChecked: boxesChecked});
         this.search();
     }
 
-    toggleEntries(event){
+    toggleEntries(event) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
-        boxesChecked.entries = ! boxesChecked.entries;
-        this.setState( {boxesChecked:boxesChecked});
+        boxesChecked.entries = !boxesChecked.entries;
+        this.setState({boxesChecked: boxesChecked});
         this.search();
     }
 
-    toggleDeveloperAPI(event){
+    toggleDeveloperAPI(event) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
-        boxesChecked.developerAPI = ! boxesChecked.developerAPI;
-        this.setState( {boxesChecked:boxesChecked});
-        this.search();
-    }
-
-
-    toggleFieldTypes(event){
-        this.setPageOne();
-        let boxesChecked = this.state.boxesChecked;
-        boxesChecked.fieldTypes = ! boxesChecked.fieldTypes;
-        this.setState( {boxesChecked:boxesChecked});
+        boxesChecked.developerAPI = !boxesChecked.developerAPI;
+        this.setState({boxesChecked: boxesChecked});
         this.search();
     }
 
 
-    toggleProcessors(event){
+    toggleFieldTypes(event) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
-        boxesChecked.processors = ! boxesChecked.processors;
-        this.setState( {boxesChecked:boxesChecked});
+        boxesChecked.fieldTypes = !boxesChecked.fieldTypes;
+        this.setState({boxesChecked: boxesChecked});
+        this.search();
+    }
+
+
+    toggleProcessors(event) {
+        this.setPageOne();
+        let boxesChecked = this.state.boxesChecked;
+        boxesChecked.processors = !boxesChecked.processors;
+        this.setState({boxesChecked: boxesChecked});
         this.search();
     }
 
     search() {
         this.setState({loading: true});
-        if( ! this.state.firstRun ){
+        if (!this.state.firstRun) {
             let boxesChecked = this.state.boxesChecked;
             boxesChecked.gettingStarted = false;
-            this.setState({firstRun:false});
-            this.setState({boxesChecked:boxesChecked});
+            this.setState({firstRun: false});
+            this.setState({boxesChecked: boxesChecked});
         }
 
         let params = {
             page: this.state.page
         };
 
-        if(this.state.query.s ){
+        if (this.state.query.s) {
             params['s'] = this.state.query.s;
             let event = {
                 category: 'Documentation Search',
@@ -325,11 +325,11 @@ class DocSearch extends React.Component {
         });
 
 
-        if( params['categories'].length){
-            params['categories'].forEach( (categoryId) => {
+        if (params['categories'].length) {
+            params['categories'].forEach((categoryId) => {
 
-                if(categoryId){
-                    this.getCategory(categoryId).then(category =>{
+                if (categoryId) {
+                    this.getCategory(categoryId).then(category => {
                         let event = {
                             category: 'Documentation Search',
                             action: 'Category Searched',
@@ -349,314 +349,318 @@ class DocSearch extends React.Component {
             params: params,
             adapter: cacheAdapterEnhancer(axios.defaults.adapter, true)
         })
-            .then( (response) => {
-                this.setState( { totalPages: response.headers[ 'x-wp-totalpages' ]});
+            .then((response) => {
+                this.setState({totalPages: response.headers['x-wp-totalpages']});
                 this.setState({loading: false});
                 this.setState({posts: response.data});
-        });
+            });
     }
 
 
-    getCategory(categoryId){
+    getCategory(categoryId) {
         return axios({
             method: 'get',
             url: `https://calderaforms.com/wp-json/wp/v2/categories/${categoryId}`,
             adapter: cacheAdapterEnhancer(axios.defaults.adapter, true)
         })
-            .then( (response) => {
+            .then((response) => {
                 return response.data;
             });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.search();
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Grid>
-                <Row >
-                <Col sm={2} md={3} >
-                    <Form role="search">
-                        <FormGroup>
-                            <h3>Search By Category</h3>
-
-                            <Category
-                                checked={this.state.boxesChecked['gettingStarted']}
-                                onChange={this.toggleGettingStarted}
-                                category={this.state.categories['gettingStarted']}
-                                label="Getting Started"
-
-                            />
-
-                            <Category
-                                checked={this.state.boxesChecked['pro']}
-                                onChange={this.togglePro}
-                                category={this.state.categories['pro']}
-                                label="Caldera Forms Pro"
-                            />
-
-                            <Category
-                                checked={this.state.boxesChecked['toggleFieldTypes']}
-                                onChange={this.toggleFieldTypes}
-                                category={this.state.categories['toggleFieldTypes']}
-                                label="Field Types"
-                            />
-
-                            <Category
-                                checked={this.state.boxesChecked['toggleShortcode']}
-                                onChange={this.toggleShortcode}
-                                category={this.state.categories['toggleShortcode']}
-                                label="Shortcode"
-                            />
-
-                            <Category
-                                checked={this.state.boxesChecked['toggleEntries']}
-                                onChange={this.toggleEntries}
-                                category={this.state.categories['toggleEntries']}
-                                label="Entries"
-                            />
-
-                           <FormGroup>
-                               <Category
-                                   checked={this.state.boxesChecked['developerAPI']}
-                                   onChange={this.toggleDeveloperAPI}
-                                   category={this.state.categories['developerAPI']}
-                                   label="Developer API"
-                               />
-                               <Category
-                                   checked={this.state.boxesChecked['actions']}
-                                   onChange={this.toggleAction}
-                                   category={this.state.categories['actions']}
-                                   label="Actions"
-                               />
-
-                               <Category
-                                   checked={this.state.boxesChecked['filters']}
-                                   onChange={this.toggleFilters}
-                                   category={this.state.categories['filters']}
-                                   label="Filters"
-                               />
-
-                           </FormGroup>
-                        </FormGroup>
-
-                        <Keyword
-                            change={this.handleChangeKeyword}
-                            value={this.state.query.s}
-                        />
-
-                        <FormGroup controlId="add-on-search">
-                            <h3>Add-on Documentation</h3>
+                <Row>
+                    <Col sm={2} md={3}>
+                        <Form role="search">
                             <FormGroup>
-                                <AddonCategory
-                                    category={this.state.categories.mailChimp}
-                                    checked={this.state.addOnsChecked.mailChimp}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.mailChimp
-                                    )}
+                                <h3>Search By Category</h3>
+
+                                <Category
+                                    checked={this.state.boxesChecked['gettingStarted']}
+                                    onChange={this.toggleGettingStarted}
+                                    category={this.state.categories['gettingStarted']}
+                                    label="Getting Started"
+
                                 />
 
-                                <AddonCategory
-                                    category={this.state.categories.paypalExpress}
-                                    checked={this.state.addOnsChecked.paypalExpress}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.paypalExpress
-                                    )}
+                                <Category
+                                    checked={this.state.boxesChecked['pro']}
+                                    onChange={this.togglePro}
+                                    category={this.state.categories['pro']}
+                                    label="Caldera Forms Pro"
                                 />
 
-                                <AddonCategory
-                                    category={this.state.categories.stripe}
-                                    checked={this.state.addOnsChecked.stripe}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.stripe
-                                    )}
+                                <Category
+                                    checked={this.state.boxesChecked['toggleFieldTypes']}
+                                    onChange={this.toggleFieldTypes}
+                                    category={this.state.categories['toggleFieldTypes']}
+                                    label="Field Types"
                                 />
 
-
-                                <AddonCategory
-                                    category={this.state.categories.authNet}
-                                    checked={this.state.addOnsChecked.authNet}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.authNet
-                                    )}
+                                <Category
+                                    checked={this.state.boxesChecked['toggleShortcode']}
+                                    onChange={this.toggleShortcode}
+                                    category={this.state.categories['toggleShortcode']}
+                                    label="Shortcode"
                                 />
 
-                                <AddonCategory
-                                    category={this.state.categories.braintree}
-                                    checked={this.state.addOnsChecked.braintree}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.braintree
-                                    )}
+                                <Category
+                                    checked={this.state.boxesChecked['toggleEntries']}
+                                    onChange={this.toggleEntries}
+                                    category={this.state.categories['toggleEntries']}
+                                    label="Entries"
                                 />
 
-                                <AddonCategory
-                                    category={this.state.categories.entryLimiter}
-                                    checked={this.state.addOnsChecked.entryLimiter}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.entryLimiter
-                                    )}
-                                />
+                                <FormGroup>
+                                    <Category
+                                        checked={this.state.boxesChecked['developerAPI']}
+                                        onChange={this.toggleDeveloperAPI}
+                                        category={this.state.categories['developerAPI']}
+                                        label="Developer API"
+                                    />
+                                    <Category
+                                        checked={this.state.boxesChecked['actions']}
+                                        onChange={this.toggleAction}
+                                        category={this.state.categories['actions']}
+                                        label="Actions"
+                                    />
 
-                                <AddonCategory
-                                    category={this.state.categories.translations}
-                                    checked={this.state.addOnsChecked.translations}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.translations
-                                    )}
-                                />
+                                    <Category
+                                        checked={this.state.boxesChecked['filters']}
+                                        onChange={this.toggleFilters}
+                                        category={this.state.categories['filters']}
+                                        label="Filters"
+                                    />
 
-                                <AddonCategory
-                                    category={this.state.categories.users}
-                                    checked={this.state.addOnsChecked.users}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.users
-                                    )}
-                                />
+                                </FormGroup>
+                            </FormGroup>
 
-                                <AddonCategory
-                                    category={this.state.categories.zapier}
-                                    checked={this.state.addOnsChecked.zapier}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.zapier
-                                    )}
-                                />
+                            <Keyword
+                                change={this.handleChangeKeyword}
+                                value={this.state.query.s}
+                            />
 
-                                <AddonCategory
-                                    category={this.state.categories.styleCustomizer}
-                                    checked={this.state.addOnsChecked.styleCustomizer}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.styleCustomizer
-                                    )}
-                                />
+                            <FormGroup controlId="add-on-search">
+                                <h3>Add-on Documentation</h3>
+                                <FormGroup>
+                                    <AddonCategory
+                                        category={this.state.categories.mailChimp}
+                                        checked={this.state.addOnsChecked.mailChimp}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.mailChimp
+                                        )}
+                                    />
 
-                                <AddonCategory
-                                    category={this.state.categories.connectedForms}
-                                    checked={this.state.addOnsChecked.connectedForms}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.connectedForms
-                                    )}
-                                />
+                                    <AddonCategory
+                                        category={this.state.categories.paypalExpress}
+                                        checked={this.state.addOnsChecked.paypalExpress}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.paypalExpress
+                                        )}
+                                    />
 
-                                <AddonCategory
-                                    category={this.state.categories.googleAnalytics}
-                                    checked={this.state.addOnsChecked.googleAnalytics}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.googleAnalytics
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    category={this.state.categories.edd}
-                                    checked={this.state.addOnsChecked.edd}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.edd
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    category={this.state.categories.geolocation}
-                                    checked={this.state.addOnsChecked.geolocation}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.geolocation
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    category={this.state.categories.runAction}
-                                    checked={this.state.addOnsChecked.runAction}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.runAction
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    category={this.state.categories.convertKit}
-                                    checked={this.state.addOnsChecked.convertKit}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.convertKit
-                                    )}
-                                />
+                                    <AddonCategory
+                                        category={this.state.categories.stripe}
+                                        checked={this.state.addOnsChecked.stripe}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.stripe
+                                        )}
+                                    />
 
 
+                                    <AddonCategory
+                                        category={this.state.categories.authNet}
+                                        checked={this.state.addOnsChecked.authNet}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.authNet
+                                        )}
+                                    />
 
+                                    <AddonCategory
+                                        category={this.state.categories.braintree}
+                                        checked={this.state.addOnsChecked.braintree}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.braintree
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.entryLimiter}
+                                        checked={this.state.addOnsChecked.entryLimiter}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.entryLimiter
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.translations}
+                                        checked={this.state.addOnsChecked.translations}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.translations
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.users}
+                                        checked={this.state.addOnsChecked.users}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.users
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.zapier}
+                                        checked={this.state.addOnsChecked.zapier}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.zapier
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.styleCustomizer}
+                                        checked={this.state.addOnsChecked.styleCustomizer}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.styleCustomizer
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.connectedForms}
+                                        checked={this.state.addOnsChecked.connectedForms}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.connectedForms
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.googleAnalytics}
+                                        checked={this.state.addOnsChecked.googleAnalytics}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.googleAnalytics
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.edd}
+                                        checked={this.state.addOnsChecked.edd}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.edd
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.geolocation}
+                                        checked={this.state.addOnsChecked.geolocation}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.geolocation
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.runAction}
+                                        checked={this.state.addOnsChecked.runAction}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.runAction
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.convertKit}
+                                        checked={this.state.addOnsChecked.convertKit}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.convertKit
+                                        )}
+                                    />
+
+
+                                </FormGroup>
+
+
+                                <FormGroup>
+                                    <AddonCategory
+                                        category={this.state.categories.easyQueries}
+                                        checked={this.state.addOnsChecked.easyQueries}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.easyQueries
+                                        )}
+                                    />
+
+                                    <AddonCategory
+                                        category={this.state.categories.easyPods}
+                                        checked={this.state.addOnsChecked.easyPods}
+                                        onChange={this.toggleAddon.bind(
+                                            null,
+                                            this.state.categories.easyPods)
+                                        }
+                                    />
+
+                                </FormGroup>
                             </FormGroup>
 
 
-                            <FormGroup>
-                                <AddonCategory
-                                    category={this.state.categories.easyQueries}
-                                    checked={this.state.addOnsChecked.easyQueries}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.easyQueries
-                                    )}
+                        </Form>
+                    </Col>
+                    <Col sm={9} md={9}>
+                        {this.state.loading &&
+                            <div className="loading">
+                                <Catdera
+                                    spin={true}
+                                />
+                                <p className="sr-only">Loading Search Results</p>
+                            </div>
+                        }
+
+                        {!this.state.loading &&
+                            <div>
+
+                                <Pagination
+                                    page={this.state.page}
+                                    pages={this.state.totalPages}
+                                    prevHandler={this.handlePrevPage}
+                                    nextHandler={this.handleNextPage}
+                                />
+                                <Results
+                                    posts={this.state.posts}
                                 />
 
-                                <AddonCategory
-                                    category={this.state.categories.easyPods}
-                                    checked={this.state.addOnsChecked.easyPods}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.easyPods)
-                                    }
+                                <Pagination
+                                    page={this.state.page}
+                                    pages={this.state.totalPages}
+                                    prevHandler={this.handlePrevPage}
+                                    nextHandler={this.handleNextPage}
                                 />
+                            </div>
+                        }
 
-                            </FormGroup>
-                        </FormGroup>
+                    </Col>
 
-
-
-                    </Form>
-                </Col>
-                <Col sm={9} md={9}>
-                    {this.state.loading &&
-                        <Catdera
-                            classname="App-catderaspin"
-                        />
-                    }
-                    {! this.state.loading &&
-                        <div>
-                            <Pagination
-                                page={this.state.page}
-                                pages={this.state.totalPages}
-                                prevHandler={this.handlePrevPage}
-                                nextHandler={this.handleNextPage}
-                            />
-                            <Results
-                                posts={this.state.posts}
-                            />
-
-                            <Pagination
-                                page={this.state.page}
-                                pages={this.state.totalPages}
-                                prevHandler={this.handlePrevPage}
-                                nextHandler={this.handleNextPage}
-                            />
-                        </div>
-                    }
-
-                </Col>
-
-            </Row></Grid>
+                </Row>
+            </Grid>
         )
     }
 }
 
-export default  DocSearch;
+export default DocSearch;
