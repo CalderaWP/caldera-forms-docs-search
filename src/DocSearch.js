@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {debounce} from 'throttle-debounce';
-import { Grid, Row, Col, Form, FormGroup, Checkbox, ControlLabel, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Form, FormGroup, Checkbox, ControlLabel } from 'react-bootstrap';
 import  { Catdera }  from "./Components/Catdera";
 import { AddonCategory } from './Components/AddonCategory';
 import {Keyword} from "./Components/Keyword";
@@ -378,28 +378,40 @@ class DocSearch extends React.Component {
                 <Col sm={2} md={3} >
                     <Form role="search">
                         <FormGroup controlId="category-search">
-                            <ControlLabel>Search By Category</ControlLabel>
+                            <h3>Search By Category</h3>
 
                             <Checkbox
                                 onChange={this.toggleGettingStarted}
-                                value={this.state.boxesChecked['gettingStarted']}>
-                                <ControlLabel>
+                                value={this.state.boxesChecked['gettingStarted']}
+                                id="category-search-gettingStarted"
+                            >
+                                <ControlLabel
+                                    htmlFor="category-search-gettingStarted"
+                                >
                                     Getting Started
                                 </ControlLabel>
                             </Checkbox>
 
                             <Checkbox
                                 onChange={this.togglePro}
-                                value={this.state.boxesChecked['pro']}>
-                                <ControlLabel>
+                                value={this.state.boxesChecked['pro']}
+                                id="category-search-togglePro"
+                            >
+                                <ControlLabel
+                                    htmlFor="category-search-togglePro"
+                                >
                                     Caldera Forms Pro
                                 </ControlLabel>
                             </Checkbox>
 
                             <Checkbox
                                 onChange={this.toggleFieldTypes}
-                                value={this.state.boxesChecked['fieldTypes']}>
-                                <ControlLabel>
+                                value={this.state.boxesChecked['fieldTypes']}
+                                id="category-search-fieldTypes"
+                            >
+                                <ControlLabel
+                                    htmlFor="category-search-fieldTypes"
+                                >
                                     Field Types
                                 </ControlLabel>
                             </Checkbox>
@@ -407,16 +419,24 @@ class DocSearch extends React.Component {
 
                             <Checkbox
                                 onChange={this.toggleShortcode}
-                                value={this.state.boxesChecked['shortcode']}>
-                                <ControlLabel>
+                                value={this.state.boxesChecked['shortcode']}
+                                id="category-search-toggleShortcode"
+                            >
+                                <ControlLabel
+                                    htmlFor="category-search-toggleShortcode"
+                                >
                                     Shortcodes
                                 </ControlLabel>
                             </Checkbox>
 
                             <Checkbox
                                 onChange={this.toggleEntries}
-                                value={this.state.boxesChecked['entries']}>
-                                <ControlLabel>
+                                value={this.state.boxesChecked['entries']}
+                                id="category-search-toggleEntries"
+                            >
+                                <ControlLabel
+                                    htmlFor="category-search-toggleEntries"
+                                >
                                     Entries
                                 </ControlLabel>
                             </Checkbox>
@@ -424,8 +444,12 @@ class DocSearch extends React.Component {
                            <FormGroup>
                                <Checkbox
                                    onChange={this.toggleDeveloperAPI}
-                                   value={this.state.boxesChecked['developerAPI']}>
-                                   <ControlLabel>
+                                   value={this.state.boxesChecked['developerAPI']}
+                                   id="category-search-developerAPI"
+                               >
+                                   <ControlLabel
+                                       htmlFor="category-search-developerAPI"
+                                   >
                                        Developer API
                                    </ControlLabel>
                                </Checkbox>
@@ -433,16 +457,24 @@ class DocSearch extends React.Component {
 
                                <Checkbox
                                    onChange={this.toggleAction}
-                                   value={this.state.boxesChecked['actions']}>
-                                   <ControlLabel>
+                                   value={this.state.boxesChecked['actions']}
+                                   id="category-search-toggleAction"
+                               >
+                                   <ControlLabel
+                                        htmlFor="category-search-toggleAction"
+                                   >
                                        Actions
                                    </ControlLabel>
                                </Checkbox>
 
                                <Checkbox
                                    onChange={this.toggleFilters}
-                                   value={this.state.boxesChecked['filters']}>
-                                   <ControlLabel>
+                                   value={this.state.boxesChecked['filters']}
+                                   id="category-search-toggleFilters"
+                               >
+                                   <ControlLabel
+                                        htmlFor="category-search-toggleFilters"
+                                   >
                                        Filters
                                    </ControlLabel>
                                </Checkbox>

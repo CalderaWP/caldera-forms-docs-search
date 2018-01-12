@@ -11,7 +11,8 @@ export class AddonCategory extends React.Component {
             loaded: false,
             category:{
                 name: 'Placeholder Name'
-            }
+            },
+            idAttr: `add-on-search-${this.props.category}`
         }
     }
 
@@ -42,8 +43,11 @@ export class AddonCategory extends React.Component {
                         onChange={this.props.onChange}
                         checked={this.props.checked}
                         category={this.props.category}
+                        id={this.state.idAttr}
                     >
-                        <ControlLabel>
+                        <ControlLabel
+                            htmlFor={this.state.idAttr}
+                        >
                             {this.state.category.name}
                         </ControlLabel>
                     </Checkbox>
