@@ -10,6 +10,7 @@ import {Pagination} from "./Components/Pagination";
 
 import ReactGA from 'react-ga';
 import { cacheAdapterEnhancer } from 'axios-extensions';
+import {Category} from "./Components/Category";
 
 const GAUA = 'UA-59323601-1';
 ReactGA.initialize(GAUA);
@@ -380,104 +381,63 @@ class DocSearch extends React.Component {
                         <FormGroup>
                             <h3>Search By Category</h3>
 
-                            <Checkbox
+                            <Category
+                                checked={this.state.boxesChecked['gettingStarted']}
                                 onChange={this.toggleGettingStarted}
-                                value={this.state.boxesChecked['gettingStarted']}
-                                id="category-search-gettingStarted"
-                            >
-                                <ControlLabel
-                                    htmlFor="category-search-gettingStarted"
-                                >
-                                    Getting Started
-                                </ControlLabel>
-                            </Checkbox>
+                                category={this.state.categories['gettingStarted']}
+                                label="Getting Started"
 
-                            <Checkbox
+                            />
+
+                            <Category
+                                checked={this.state.boxesChecked['pro']}
                                 onChange={this.togglePro}
-                                value={this.state.boxesChecked['pro']}
-                                id="category-search-togglePro"
-                            >
-                                <ControlLabel
-                                    htmlFor="category-search-togglePro"
-                                >
-                                    Caldera Forms Pro
-                                </ControlLabel>
-                            </Checkbox>
+                                category={this.state.categories['pro']}
+                                label="Caldera Forms Pro"
+                            />
 
-                            <Checkbox
+                            <Category
+                                checked={this.state.boxesChecked['toggleFieldTypes']}
                                 onChange={this.toggleFieldTypes}
-                                value={this.state.boxesChecked['fieldTypes']}
-                                id="category-search-fieldTypes"
-                            >
-                                <ControlLabel
-                                    htmlFor="category-search-fieldTypes"
-                                >
-                                    Field Types
-                                </ControlLabel>
-                            </Checkbox>
+                                category={this.state.categories['toggleFieldTypes']}
+                                label="Field Types"
+                            />
 
-
-                            <Checkbox
+                            <Category
+                                checked={this.state.boxesChecked['toggleShortcode']}
                                 onChange={this.toggleShortcode}
-                                value={this.state.boxesChecked['shortcode']}
-                                id="category-search-toggleShortcode"
-                            >
-                                <ControlLabel
-                                    htmlFor="category-search-toggleShortcode"
-                                >
-                                    Shortcodes
-                                </ControlLabel>
-                            </Checkbox>
+                                category={this.state.categories['toggleShortcode']}
+                                label="Shortcode"
+                            />
 
-                            <Checkbox
+                            <Category
+                                checked={this.state.boxesChecked['toggleEntries']}
                                 onChange={this.toggleEntries}
-                                value={this.state.boxesChecked['entries']}
-                                id="category-search-toggleEntries"
-                            >
-                                <ControlLabel
-                                    htmlFor="category-search-toggleEntries"
-                                >
-                                    Entries
-                                </ControlLabel>
-                            </Checkbox>
+                                category={this.state.categories['toggleEntries']}
+                                label="Entries"
+                            />
 
                            <FormGroup>
-                               <Checkbox
+                               <Category
+                                   checked={this.state.boxesChecked['developerAPI']}
                                    onChange={this.toggleDeveloperAPI}
-                                   value={this.state.boxesChecked['developerAPI']}
-                                   id="category-search-developerAPI"
-                               >
-                                   <ControlLabel
-                                       htmlFor="category-search-developerAPI"
-                                   >
-                                       Developer API
-                                   </ControlLabel>
-                               </Checkbox>
-
-
-                               <Checkbox
+                                   category={this.state.categories['developerAPI']}
+                                   label="Developer API"
+                               />
+                               <Category
+                                   checked={this.state.boxesChecked['actions']}
                                    onChange={this.toggleAction}
-                                   value={this.state.boxesChecked['actions']}
-                                   id="category-search-toggleAction"
-                               >
-                                   <ControlLabel
-                                        htmlFor="category-search-toggleAction"
-                                   >
-                                       Actions
-                                   </ControlLabel>
-                               </Checkbox>
+                                   category={this.state.categories['actions']}
+                                   label="Actions"
+                               />
 
-                               <Checkbox
+                               <Category
+                                   checked={this.state.boxesChecked['filters']}
                                    onChange={this.toggleFilters}
-                                   value={this.state.boxesChecked['filters']}
-                                   id="category-search-toggleFilters"
-                               >
-                                   <ControlLabel
-                                        htmlFor="category-search-toggleFilters"
-                                   >
-                                       Filters
-                                   </ControlLabel>
-                               </Checkbox>
+                                   category={this.state.categories['filters']}
+                                   label="Filters"
+                               />
+
                            </FormGroup>
                         </FormGroup>
 
