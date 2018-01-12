@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {debounce} from 'throttle-debounce';
-import { Grid, Row, Col, Form, FormGroup, Checkbox, ControlLabel } from 'react-bootstrap';
+import { Grid, Row, Col, Form, FormGroup } from 'react-bootstrap';
 import  { Catdera }  from "./Components/Catdera";
 import { AddonCategory } from './Components/AddonCategory';
 import {Keyword} from "./Components/Keyword";
@@ -627,7 +627,9 @@ class DocSearch extends React.Component {
                 </Col>
                 <Col sm={9} md={9}>
                     {this.state.loading &&
-                        <Catdera/>
+                        <Catdera
+                            classname="App-catderaspin"
+                        />
                     }
                     {! this.state.loading &&
                         <div>

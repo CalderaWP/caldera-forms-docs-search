@@ -10,7 +10,7 @@ export class Category extends React.Component {
 
     render() {
         return (
-            <div class="checkbox">
+            <div className="checkbox">
                 <label title="">
                     <label
                         htmlFor={this.state.idAttr}

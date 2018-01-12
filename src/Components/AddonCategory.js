@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React from 'react';
-import { Checkbox, ControlLabel, FormGroup } from 'react-bootstrap';
+import { FormGroup } from 'react-bootstrap';
 import { Catdera } from './Catdera';
+import { Category } from "./Category";
 import { cacheAdapterEnhancer } from 'axios-extensions';
 
 export class AddonCategory extends React.Component {
@@ -34,25 +35,18 @@ export class AddonCategory extends React.Component {
             <FormGroup>
                 {!this.state.loaded &&
                     <Catdera
+                        classname="App-catderaspin"
                         width={10}
                     />
                 }
                 {this.state.loaded &&
-                    <FormGroup>
-                        <ControlLabel
-                            htmlFor={this.state.idAttr}
-                        >
-                            {this.state.category.name}
-                        </ControlLabel>
-                        <Checkbox
-                            onChange={this.props.onChange}
-                            checked={this.props.checked}
-                            category={this.props.category}
-                            id={this.state.idAttr}
-                        >
+                    <Category
+                        checked={this.props.checked}
+                        onChange={this.props.onChange}
+                        category={this.props.category}
+                        label={this.state.category.name}
 
-                        </Checkbox>
-                    </FormGroup>
+                    />
                 }
 
             </FormGroup>
