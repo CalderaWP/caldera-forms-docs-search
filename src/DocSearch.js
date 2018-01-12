@@ -28,6 +28,7 @@ class DocSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            firstRun: true,
             posts: POSTS,
             page: 1,
             totalPages: 1,
@@ -284,6 +285,12 @@ class DocSearch extends React.Component {
 
     search() {
         this.setState({loading: true});
+        if( ! this.state.firstRun ){
+            let boxesChecked = this.state.boxesChecked;
+            boxesChecked.gettingStarted = false;
+            this.setState({firstRun:false});
+            this.setState({boxesChecked:boxesChecked});
+        }
 
         let params = {
             page: this.state.page
