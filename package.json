@@ -16,7 +16,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "surge" : "surge --domain=caldera-forms-doc-search.surge.sh --project=/Users/josh/sites/caldera-dev/cf-docs-search/build",
+    "deploy": "npm run predeploy && npm run surge && gh-pages -d build"
   },
   "devDependencies": {
     "axios": "^0.17.1",
