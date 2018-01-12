@@ -456,14 +456,6 @@ class DocSearch extends React.Component {
 
                         <FormGroup controlId="add-on-search">
                             <ControlLabel>Add-on Documentation</ControlLabel>
-
-                            <Button
-                                bsStyle="info"
-                                onClick={this.toggleAllAddonsOff}
-                            >
-                                Reset Add-on Search
-                            </Button>
-
                             <FormGroup>
                                 <AddonCategory
                                     category={this.state.categories.mailChimp}
