@@ -1,7 +1,6 @@
 {
   "name": "cf-docs-search",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "react": "^16.2.0",
@@ -15,12 +14,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "axios": "^0.17.1",
     "axios-extensions": "^1.1.0",
+    "gh-pages": "^1.1.0",
     "lodash.findkey": "^4.6.0",
     "react-ga": "^2.4.1"
-  }
+  },
+  "homepage": "http://calderalabs.org/caldera-forms-docs-search/"
 }
