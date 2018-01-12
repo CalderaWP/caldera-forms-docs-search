@@ -190,11 +190,16 @@ class DocSearch extends React.Component {
         }
 
         let boxesChecked = this.state.addOnsChecked;
+        const setExceptTrue = ! boxesChecked[exceptCategory];
         Object.keys( boxesChecked ).forEach( (addOn ) => {
             boxesChecked[addOn] = false;
         });
 
-        boxesChecked[exceptCategory] = true;
+
+        if ( setExceptTrue ) {
+            boxesChecked[exceptCategory] = true;
+        }
+
         this.setState({addOnsChecked:boxesChecked})
     }
 
