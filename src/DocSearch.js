@@ -14,8 +14,6 @@ import { cacheAdapterEnhancer } from 'axios-extensions';
 const GAUA = 'UA-59323601-1';
 ReactGA.initialize(GAUA);
 
-
-
 let POSTS = [
     {
         title: {rendered: ''},
@@ -298,11 +296,13 @@ class DocSearch extends React.Component {
 
         if(this.state.query.s ){
             params['s'] = this.state.query.s;
-            ReactGA.event({
-                category: 'Documentation Search Keyword',
-                action: 'Deleted Component',
+            let event = {
+                category: 'Documentation Search',
+                action: 'Documentation Search Keyword',
                 label: params['s']
-            });
+
+            };
+            ReactGA.event(event);
         }
 
         params['categories'] = [];
@@ -330,7 +330,6 @@ class DocSearch extends React.Component {
                             label: category.name,
                             value: categoryId
                         };
-                        console.log(event);
                         ReactGA.event(event);
                     })
                 }
