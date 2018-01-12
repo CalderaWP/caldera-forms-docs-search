@@ -11,6 +11,7 @@ export class Results extends React.Component {
                             <div key={post.id}>
                                 <Post
                                     post={post}
+                                    key={post.id}
                                 />
                             </div>
                         );

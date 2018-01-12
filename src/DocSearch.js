@@ -377,7 +377,7 @@ class DocSearch extends React.Component {
                 <Row >
                 <Col sm={2} md={3} >
                     <Form role="search">
-                        <FormGroup controlId="category-search">
+                        <FormGroup>
                             <h3>Search By Category</h3>
 
                             <Checkbox
@@ -487,7 +487,7 @@ class DocSearch extends React.Component {
                         />
 
                         <FormGroup controlId="add-on-search">
-                            <ControlLabel>Add-on Documentation</ControlLabel>
+                            <h3>Add-on Documentation</h3>
                             <FormGroup>
                                 <AddonCategory
                                     category={this.state.categories.mailChimp}

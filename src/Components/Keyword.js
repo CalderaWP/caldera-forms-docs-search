@@ -1,12 +1,12 @@
 import React from 'react';
-import { ControlLabel, FormGroup,FormControl } from 'react-bootstrap';
+import { FormGroup,FormControl } from 'react-bootstrap';
 
 export  class  Keyword extends React.Component {
     render() {
         return (
             <FormGroup controlId="keyword-search">
 
-                <ControlLabel>Keyword Search</ControlLabel>
+                <h3>Keyword Search</h3>
                 <FormControl
                     type="text"
                     value={this.props.value}
