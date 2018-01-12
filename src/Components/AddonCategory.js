@@ -38,19 +38,21 @@ export class AddonCategory extends React.Component {
                     />
                 }
                 {this.state.loaded &&
-
-                    <Checkbox
-                        onChange={this.props.onChange}
-                        checked={this.props.checked}
-                        category={this.props.category}
-                        id={this.state.idAttr}
-                    >
+                    <FormGroup>
                         <ControlLabel
                             htmlFor={this.state.idAttr}
                         >
                             {this.state.category.name}
                         </ControlLabel>
-                    </Checkbox>
+                        <Checkbox
+                            onChange={this.props.onChange}
+                            checked={this.props.checked}
+                            category={this.props.category}
+                            id={this.state.idAttr}
+                        >
+
+                        </Checkbox>
+                    </FormGroup>
                 }
 
             </FormGroup>
