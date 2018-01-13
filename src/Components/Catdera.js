@@ -15,7 +15,7 @@ export class Catdera extends React.Component {
 
     componentDidMount(){
         if( this.props.spin){
-            this.state.className = 'catdera-logo spin-loader';
+            this.setState({className: 'catdera-logo spin-loader' });
         }
     }
     render(){

@@ -20,7 +20,7 @@ export class AddonCategory extends React.Component {
     componentDidMount(){
         return axios({
             method: 'get',
-            url: `https://calderaforms.com/wp-json/wp/v2/categories/${this.props.category}`,
+            url: `${this.props.apiRoot}/wp/v2/categories/${this.props.category}`,
             adapter: cacheAdapterEnhancer(axios.defaults.adapter, true)
         })
             .then( (response) => {

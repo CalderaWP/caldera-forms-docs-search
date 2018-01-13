@@ -4,10 +4,13 @@ import DocSearch from './DocSearch';
 import './App.css';
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
-          <DocSearch/>
+          <DocSearch
+              apiRoot={this.props.apiRoot}
+          />
       </div>
     );
   }

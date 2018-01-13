@@ -14,17 +14,13 @@ export  class FeaturedImage extends React.Component {
 
         };
 
-        this.setImage = this.setImage.bind(this);
-    }
-
-    setImage(responseImage){
 
     }
 
     componentDidMount(){
         axios({
             method: 'get',
-            url: 'https://calderaforms.com/wp-json/wp/v2/media',
+            url: `${this.props.apiRoot}/wp/v2/media`,
             params: {
                 parent: this.props.post.id
             },

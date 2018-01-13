@@ -33,6 +33,7 @@ export class Post extends React.Component {
                 </div>
 
                 <FeaturedImage
+                    apiRoot={this.props.apiRoot}
                     post={this.props.post}
                 />
 

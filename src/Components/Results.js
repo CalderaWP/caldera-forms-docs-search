@@ -10,6 +10,7 @@ export class Results extends React.Component {
                         return (
                             <div key={post.id}>
                                 <Post
+                                    apiRoot={this.props.apiRoot}
                                     post={post}
                                 />
                             </div>
