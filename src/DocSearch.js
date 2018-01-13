@@ -647,6 +647,7 @@ class DocSearch extends React.Component {
                         {this.state.loading &&
                             <div className="loading">
                                 <Catdera
+                                    width={'200px'}
                                     spin={true}
                                 />
                                 <p className="sr-only">Loading Search Results</p>
