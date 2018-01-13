@@ -5,6 +5,7 @@
     "bootstrap": "^3.3.7",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.0",
+    "react-dock": "^0.2.4",
     "react-dom": "^16.2.0",
     "react-escape-html": "^1.0.5",
     "react-scripts": "^1.0.17",
@@ -16,7 +17,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "surge" : "surge --domain=caldera-forms-doc-search.surge.sh --project=/Users/josh/sites/caldera-dev/cf-docs-search/build",
+    "surge": "surge --domain=caldera-forms-doc-search.surge.sh --project=/Users/josh/sites/caldera-dev/cf-docs-search/build",
     "deploy": "npm run predeploy && npm run surge && npm run gh",
     "gh": "gh-pages -d build"
   },
@@ -25,7 +26,8 @@
     "axios-extensions": "^1.1.0",
     "gh-pages": "^1.1.0",
     "lodash.findkey": "^4.6.0",
-    "react-ga": "^2.4.1"
+    "react-ga": "^2.4.1",
+    "react-onclickoutside": "^6.7.0"
   },
   "homepage": "http://calderalabs.org/caldera-forms-docs-search/"
 }
