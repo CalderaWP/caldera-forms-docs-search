@@ -1,6 +1,6 @@
 {
   "name": "cf-docs-search",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "react": "^16.2.0",
