@@ -144,6 +144,10 @@ class DocSearch extends React.Component {
         this.panelSizeChange = this.panelSizeChange.bind(this);
     }
 
+    /**
+     * Handler for changes in panel size
+     * @param panelSize
+     */
     panelSizeChange(panelSize){
         let margin = 0;
         if (panelSize) {
@@ -162,6 +166,9 @@ class DocSearch extends React.Component {
         this.setState({contentMarginLeft:`${margin}%`});
     }
 
+    /**
+     * Runs when window size is updated
+     */
     updateWindowDimensions() {
         let position = 'left';
         this.setState({ width: window.innerWidth, height: window.innerHeight });
@@ -172,6 +179,9 @@ class DocSearch extends React.Component {
         this.setState({ panelPosition:position})
     }
 
+    /**
+     * Handler for pagination forward
+     */
     handleNextPage() {
         let nextPage = this.state.page + 1;
         if (nextPage <= this.state.totalPages) {
@@ -180,6 +190,9 @@ class DocSearch extends React.Component {
         }
     }
 
+    /**
+     * Handler for pagination backwards
+     */
     handlePrevPage() {
         let prevPage = this.state.page - 1;
         if (prevPage > 0) {
@@ -188,11 +201,18 @@ class DocSearch extends React.Component {
         }
     }
 
+    /**
+     * Reset results to page 1
+     */
     setPageOne() {
         this.setState({page: 1});
     }
 
-
+    /**
+     * Handler for when keyword being searched for changes
+     *
+     * @param event
+     */
     handleChangeKeyword(event) {
         this.setPageOne();
         let q = this.state.query;
@@ -201,6 +221,12 @@ class DocSearch extends React.Component {
         this.search();
     }
 
+    /**
+     * Handler for when an add-on category is clicked on on
+     * Disables all other addons
+     *
+     * @param addOnIdBeingChecked
+     */
     toggleAddon(addOnIdBeingChecked) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -210,6 +236,10 @@ class DocSearch extends React.Component {
         this.search();
     }
 
+    /**
+     * Unclick all add-on categories
+     *
+     */
     toggleAllAddonsOff() {
         this.setPageOne();
         let boxesChecked = this.state.addOnsChecked;
@@ -220,6 +250,11 @@ class DocSearch extends React.Component {
         this.setState({addOnsChecked: boxesChecked})
     }
 
+    /**
+     * Unlick all addons except one
+     *
+     * @param exceptCategoryId
+     */
     toggleOffOtherAddons(exceptCategoryId) {
         this.setPageOne();
         let exceptCategory = null;
@@ -245,6 +280,9 @@ class DocSearch extends React.Component {
         this.setState({addOnsChecked: boxesChecked})
     }
 
+    /**
+     * Invert click/not click for action category
+     */
     toggleAction() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -253,6 +291,9 @@ class DocSearch extends React.Component {
         this.search();
     }
 
+    /**
+     * Invert click/not click for filter category
+     */
     toggleFilters() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -262,6 +303,9 @@ class DocSearch extends React.Component {
 
     }
 
+    /**
+     * Invert click/not click for add-ons category
+     */
     toggleAddons() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -270,6 +314,9 @@ class DocSearch extends React.Component {
         this.search();
     }
 
+    /**
+     * Invert click/not click for pro category
+     */
     togglePro() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -278,6 +325,9 @@ class DocSearch extends React.Component {
         this.search();
     }
 
+    /**
+     * Invert click/not click for getting started category
+     */
     toggleGettingStarted() {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -286,6 +336,9 @@ class DocSearch extends React.Component {
         this.search();
     }
 
+    /**
+     * Invert click/not click for shortcode category
+     */
     toggleShortcode(event) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -302,6 +355,9 @@ class DocSearch extends React.Component {
         this.search();
     }
 
+    /**
+     * Invert click/not click for developer api category
+     */
     toggleDeveloperAPI(event) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -310,7 +366,9 @@ class DocSearch extends React.Component {
         this.search();
     }
 
-
+    /**
+     * Invert click/not click for field types category
+     */
     toggleFieldTypes(event) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -319,7 +377,9 @@ class DocSearch extends React.Component {
         this.search();
     }
 
-
+    /**
+     * Invert click/not click for processors category
+     */
     toggleProcessors(event) {
         this.setPageOne();
         let boxesChecked = this.state.boxesChecked;
@@ -328,6 +388,11 @@ class DocSearch extends React.Component {
         this.search();
     }
 
+    /**
+     * Run search using current state
+     *
+     * NOTE: This function is debounced and uses an api that uses local caching when possible. Chill.
+     */
     search() {
         this.setState({loading: true});
         if (!this.state.firstRun) {
@@ -398,6 +463,11 @@ class DocSearch extends React.Component {
     }
 
 
+    /**
+     * Get a category via REST API
+     * @param categoryId
+     * @returns {Promise.<TResult>}
+     */
     getCategory(categoryId) {
         return axios({
             method: 'get',
@@ -409,6 +479,11 @@ class DocSearch extends React.Component {
             });
     }
 
+    /**
+     * Invert panel visibility.
+     *
+     * Makes it open when it's closed or closed when its opened
+     */
     togglePanelVisible(){
         if( this.state.isPanelVisible){
             this.panelSizeChange(0);
