@@ -15,7 +15,11 @@ export  class FeaturedImage extends React.Component {
             style: props.style ? props.style : {},
         };
 
+        this.url = this.url.bind(this);
+    }
 
+    url(){
+        return this.props.post.link + `?utm_source=search&utm_term=${(this.props.lastParams.categories)}&utm_keyword=${encodeURIComponent(this.props.lastParams.s)}`;
     }
 
     componentDidMount(){
@@ -45,7 +49,7 @@ export  class FeaturedImage extends React.Component {
         return(
             <div>
 
-                <a href={this.props.post.link} >
+                <a href={this.url()} >
                     <Image
                         className="large img-responsive"
                         alt={this.state.alt_text}

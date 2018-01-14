@@ -8,9 +8,9 @@ export class Post extends React.Component {
     }
 
     url(){
-        //@todo set utms here
         return this.props.post.link + `?utm_source=search&utm_term=${(this.props.lastParams.categories)}&utm_keyword=${encodeURIComponent(this.props.lastParams.s)}`;
     }
+
     createExcerpt() {
         return {__html: this.props.post.excerpt.rendered};
     }
@@ -44,6 +44,7 @@ export class Post extends React.Component {
                 <FeaturedImage
                     apiRoot={this.props.apiRoot}
                     post={this.props.post}
+                    lastParams={this.props.lastParams}
                 />
 
                 <div className="entry-content">

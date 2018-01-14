@@ -1,5 +1,4 @@
 import React from 'react';
-import {FeaturedImage} from "./FeaturedImage";
 import Image from './Image';
 
 export class DockBanner extends React.Component {
