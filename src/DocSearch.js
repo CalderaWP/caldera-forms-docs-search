@@ -146,7 +146,7 @@ class DocSearch extends React.Component {
 
         this.setState({ width: window.innerWidth, height: window.innerHeight });
         if(675 > this.state.width){
-            position = 'top'
+            position = 'bottom'
         }
         this.setState({ panelPosition:position})
     }
