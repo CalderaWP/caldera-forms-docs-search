@@ -1,5 +1,6 @@
 import React from 'react';
 import {FeaturedImage} from "./FeaturedImage";
+import {Grid,Row,Col} from 'react-bootstrap';
 
 export class Post extends React.Component {
     constructor(props){
@@ -21,51 +22,71 @@ export class Post extends React.Component {
 
     render() {
         return (
-            <article
-                id={`post-${this.props.post.id}`}
-                className={`post-${this.props.post.id} row not-box hentry`}
-            >
-                <div
-                    className="entry-header"
-                    role="heading"
+            <Grid>
+                <article
+                    id={`post-${this.props.post.id}`}
+                    className={`post-${this.props.post.id} row not-box hentry`}
                 >
-                    <h2
-                        className="entry-title"
-                    >
-                        <a
-                            href={this.props.post.link}
-                            rel="bookmark"
-                        >
-                            <div dangerouslySetInnerHTML={this.createTitle()} />
-                        </a>
-                    </h2>
-                </div>
+                    <Row>
+                        <Col xs={12}>
+                            <div
+                                className="entry-header"
+                                role="heading"
+                            >
+                                <h2
+                                    className="entry-title"
+                                >
+                                    <a
+                                        href={this.props.post.link}
+                                        rel="bookmark"
+                                    >
+                                        <div dangerouslySetInnerHTML={this.createTitle()} />
+                                    </a>
+                                </h2>
+                            </div>
+                        </Col>
+                    </Row>
 
-                <FeaturedImage
-                    apiRoot={this.props.apiRoot}
-                    post={this.props.post}
-                    lastParams={this.props.lastParams}
-                />
+                    <Row>
+                        <Col xs={12} sm={3} md={4}>
+                            <FeaturedImage
+                                apiRoot={this.props.apiRoot}
+                                post={this.props.post}
+                                lastParams={this.props.lastParams}
+                            />
+                        </Col>
+                        <Col xs={12} sm={12} md={8}>
+                            <div className="entry-content">
+                                <div dangerouslySetInnerHTML={this.createExcerpt()} />
 
-                <div className="entry-content">
-                    <div dangerouslySetInnerHTML={this.createExcerpt()} />
-                    <a
-                        href={this.url()}
-                        className="btn btn-green btn-block btn-readmore"
-                        rel="bookmark"
+                            </div>
+                        </Col>
+                        <Col xs={12}>
+                            <a
+                                href={this.url()}
+                                className="btn btn-green btn-block btn-readmore"
+                                rel="bookmark"
 
-                    >
-                        Read More
-                    </a>
-                </div>
-
-
-
-                <footer className="entry-footer">
-                </footer>
+                            >
+                                Read More
+                            </a>
+                        </Col>
+                    </Row>
 
 
-            </article>
+
+
+
+
+
+
+                    <footer className="entry-footer">
+                    </footer>
+
+
+                </article>
+            </Grid>
+
 
         )
     }
