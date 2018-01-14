@@ -43,7 +43,9 @@ export class TopBar extends React.Component {
                     className="affix"
                 >
 
-                    <Nav>
+                    <Nav
+                        pullRight
+                    >
                         <NavItem
                             className={'cf-doc-search-sidebar-toggle'}
                             eventKey={1}
