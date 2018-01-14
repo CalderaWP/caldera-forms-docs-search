@@ -32,8 +32,9 @@ class DocSearch extends React.Component {
         this.state = {
             isPanelVisible: true,
             panelPosition: 'left',
-            panelSize: 33,
-            width: 0,
+            panelSize: 0.33,
+            contentMarginLeft: '0%',
+            width: 700,
             height: 0,
             apiRoot: props.apiRoot ? props.apiRoot : 'https://calderaforms.com/wp-json',
             firstRun: true,
@@ -140,14 +141,33 @@ class DocSearch extends React.Component {
         this.setPageOne = this.setPageOne.bind(this);
         this.togglePanelVisible = this.togglePanelVisible.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.panelSizeChange = this.panelSizeChange.bind(this);
+    }
+
+    panelSizeChange(panelSize){
+        let margin = 0;
+        if (panelSize) {
+            margin = 100;
+            if ('left' === this.state.panelPosition) {
+                margin = panelSize * 100;
+            }
+
+            if (margin > 100) {
+                margin = 100;
+            }
+        }
+        if(675 > this.state.width){
+            margin = 0;
+        }
+        this.setState({contentMarginLeft:`${margin}%`});
     }
 
     updateWindowDimensions() {
         let position = 'left';
-
         this.setState({ width: window.innerWidth, height: window.innerHeight });
         if(675 > this.state.width){
             position = 'bottom'
+            this.panelSizeChange();
         }
         this.setState({ panelPosition:position})
     }
@@ -389,10 +409,28 @@ class DocSearch extends React.Component {
             });
     }
 
+    togglePanelVisible(){
+        if( this.state.isPanelVisible){
+            this.panelSizeChange(0);
+            //this.setState({contentMarginLeft:'0%'});
+        }else{
+            this.panelSizeChange(this.state.panelSize);
+
+        }
+        this.setState({isPanelVisible: ! this.state.isPanelVisible});
+
+    }
+
+    componentDidUpdate() {
+        if( 700 === this.state.width ){
+            this.updateWindowDimensions();
+        }
+    }
+
     componentDidMount() {
         this.search();
-
         this.updateWindowDimensions();
+        this.panelSizeChange(this.state.panelSize);
         window.addEventListener('resize', this.updateWindowDimensions);
     }
 
@@ -400,9 +438,6 @@ class DocSearch extends React.Component {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
 
-    togglePanelVisible(){
-        this.setState({isPanelVisible: ! this.state.isPanelVisible});
-    }
 
     render() {
         return (
@@ -412,7 +447,7 @@ class DocSearch extends React.Component {
                     isOpen={this.state.isPanelVisible}
                 />
                 <Dock
-                    onSizeChange={(event)=>{console.log(event)}}
+                    onSizeChange={this.panelSizeChange}
                     position={this.state.panelPosition}
                     isVisible={this.state.isPanelVisible}
                     dimMode={'transparent'}
@@ -686,7 +721,9 @@ class DocSearch extends React.Component {
 
                 </Dock>
 
-                <div>
+                <div
+
+                >
                     {this.state.loading &&
                         <div className="loading">
                             <Catdera
@@ -698,18 +735,18 @@ class DocSearch extends React.Component {
                     }
 
                     {!this.state.loading &&
-                    <div>
-
-                        <Pagination
-                            page={this.state.page}
-                            pages={this.state.totalPages}
-                            prevHandler={this.handlePrevPage}
-                            nextHandler={this.handleNextPage}
-                        />
+                    <div
+                        className={'cf-doc-search-results-outer'}
+                        style={
+                            {
+                                marginLeft:this.state.contentMarginLeft
+                            }
+                        }
+                    >
                         <Results
                             apiRoot={this.props.apiRoot}
                             posts={this.state.posts}
-                        />
+                        />contentMarginLeft
 
                         <Pagination
                             page={this.state.page}
