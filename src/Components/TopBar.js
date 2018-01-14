@@ -37,34 +37,33 @@ export class TopBar extends React.Component {
 
     render() {
         return (
-            <div>
-                <Navbar
-                    inverse
-                    className="affix"
-                >
+            <Navbar
+                inverse
+                className={'affix cf-doc-search-nav'}
+            >
 
-                    <Nav
-                        pullRight
+                <Nav
+                    pullRight
+                >
+                    <NavItem
+                        className={'cf-doc-search-sidebar-toggle'}
+                        eventKey={1}
+                        href="#"
+                        title={this.title()}
+                        onClick={this.props.toggleOpen}
                     >
-                        <NavItem
-                            className={'cf-doc-search-sidebar-toggle'}
-                            eventKey={1}
-                            href="#"
-                            title={this.title()}
-                            onClick={this.props.toggleOpen}
+                        <Glyphicon
+                            glyph={this.icon()}
+                        />
+                        <span
+                            className={'description'}
                         >
-                            <Glyphicon
-                                glyph={this.icon()}
-                            />
-                            <span
-                                className={'description'}
-                            >
                                 {this.text()}
                             </span>
-                        </NavItem>
-                    </Nav>
-                </Navbar>
-            </div>
+                    </NavItem>
+                </Nav>
+            </Navbar>
+
         )
     }
 }

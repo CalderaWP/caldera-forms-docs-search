@@ -524,6 +524,7 @@ class DocSearch extends React.Component {
                 <TopBar
                     toggleOpen={this.togglePanelVisible}
                     isOpen={this.state.isPanelVisible}
+
                 />
                 <Dock
                     onSizeChange={this.panelSizeChange}
