@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Image from './Image';
 export class Catdera extends React.Component {
     constructor(props){
         super(props);
@@ -20,15 +20,11 @@ export class Catdera extends React.Component {
     }
     render(){
         return(
-            <img
+            <Image
                 src="https://calderaforms.com/wp-content/uploads/2017/05/catdera-no-text-768x747.jpg"
                 className={this.state.className}
-                style={
-                    {
-                        width:this.state.width,
-                        height: this.state.height
-                    }
-                }
+                width={this.state.width}
+                height={this.state.height}
                 alt="Catdera Mascot"
             />
         )

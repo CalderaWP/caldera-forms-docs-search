@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Image from './Image';
 import { cacheAdapterEnhancer } from 'axios-extensions';
 
 export  class FeaturedImage extends React.Component {
@@ -47,7 +48,7 @@ export  class FeaturedImage extends React.Component {
             <div>
 
                 <a href={this.props.post.link} >
-                    <img
+                    <Image
                         className="large img-responsive"
                         alt={this.state.alt_text}
                         width={this.state.width}
