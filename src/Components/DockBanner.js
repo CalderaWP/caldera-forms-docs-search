@@ -7,9 +7,10 @@ export class DockBanner extends React.Component {
         return(
             <div>
                 {'left' === this.props.panelPosition &&
-                    <FeaturedImage
-                        post={{id: 97065}}
-                        style={this.props.style}
+                    <Image
+                        src={'https://calderaforms.com/wp-content/uploads/2016/06/cf-banner.png'}
+                        alt={'Caldera Forms Banner'}
+                        width={'100%'}
                     />
                 }
 

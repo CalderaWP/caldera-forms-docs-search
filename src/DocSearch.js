@@ -412,6 +412,7 @@ class DocSearch extends React.Component {
                     isOpen={this.state.isPanelVisible}
                 />
                 <Dock
+                    onSizeChange={(event)=>{console.log(event)}}
                     position={this.state.panelPosition}
                     isVisible={this.state.isPanelVisible}
                     dimMode={'transparent'}
