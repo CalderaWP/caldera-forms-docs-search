@@ -12,6 +12,7 @@ export class Results extends React.Component {
                                 <Post
                                     apiRoot={this.props.apiRoot}
                                     post={post}
+                                    lastParams={this.props.lastParams}
                                 />
                             </div>
                         );

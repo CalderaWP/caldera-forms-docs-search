@@ -36,6 +36,7 @@ class DocSearch extends React.Component {
             contentMarginLeft: '0%',
             width: 700,
             height: 0,
+            lastParams: {},
             apiRoot: props.apiRoot ? props.apiRoot : 'https://calderaforms.com/wp-json',
             firstRun: true,
             posts: POSTS,
@@ -449,6 +450,9 @@ class DocSearch extends React.Component {
             })
         }
 
+        //track to add to outgoing urls as utm_term=
+        this.setState({lastParams:params});
+
         axios({
             method: 'get',
             url: `${this.state.apiRoot}/wp/v2/doc`,
@@ -821,7 +825,8 @@ class DocSearch extends React.Component {
                         <Results
                             apiRoot={this.props.apiRoot}
                             posts={this.state.posts}
-                        />contentMarginLeft
+                            lastParams={this.state.lastParams}
+                        />
 
                         <Pagination
                             page={this.state.page}
