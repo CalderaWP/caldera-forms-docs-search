@@ -524,7 +524,7 @@ class DocSearch extends React.Component {
                 <TopBar
                     toggleOpen={this.togglePanelVisible}
                     isOpen={this.state.isPanelVisible}
-
+                    lastParams={this.state.lastParams}
                 />
                 <Dock
                     onSizeChange={this.panelSizeChange}
@@ -821,6 +821,7 @@ class DocSearch extends React.Component {
                                 this.togglePanelVisible();
                             }
                         }).bind(this)}
+                        //I promise the binding is neccasary to get clicks outside of panel to close panel. Fuck your "no-extra-bind" warning
                         className={'cf-doc-search-results-outer'}
                         style={
                             {

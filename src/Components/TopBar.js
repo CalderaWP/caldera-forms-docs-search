@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, Nav, NavItem, Glyphicon} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, Glyphicon, Button} from 'react-bootstrap';
 
 export class TopBar extends React.Component {
     constructor(props) {
@@ -11,6 +11,7 @@ export class TopBar extends React.Component {
         this.text = this.text.bind(this);
         this.title = this.title.bind(this);
         this.icon = this.icon.bind(this);
+        this.supportUrl = this.supportUrl.bind(this);
     }
 
     text() {
@@ -34,13 +35,23 @@ export class TopBar extends React.Component {
         return 'search';
 
     }
+    supportUrl(){
+        return `https://calderaforms.com/support?utm_source=search&utm_term=${(this.props.lastParams.categories)}&utm_keyword=${encodeURIComponent(this.props.lastParams.s)}`;
+    }
+
 
     render() {
         return (
             <Navbar
                 inverse
-                className={'affix cf-doc-search-nav'}
+                fixedTop
+                className={'cf-doc-search-nav'}
             >
+                <Nav>
+
+                    <Button bsStyle="info" href={this.supportUrl()} glyph={'star'}>Support</Button>
+
+                </Nav>
 
                 <Nav
                     pullRight
@@ -48,7 +59,6 @@ export class TopBar extends React.Component {
                     <NavItem
                         className={'cf-doc-search-sidebar-toggle'}
                         eventKey={1}
-                        href="#"
                         title={this.title()}
                         onClick={this.props.toggleOpen}
                     >
