@@ -8,6 +8,7 @@ import {Keyword} from "./Components/Keyword";
 import {Results} from "./Components/Results";
 import {Pagination} from "./Components/Pagination";
 import {TopBar} from "./Components/TopBar";
+import {DockBanner} from "./Components/DockBanner";
 import Dock from 'react-dock';
 
 import ReactGA from 'react-ga';
@@ -411,11 +412,13 @@ class DocSearch extends React.Component {
                     isOpen={this.state.isPanelVisible}
                 />
                 <Dock
-
                     position={this.state.panelPosition}
                     isVisible={this.state.isPanelVisible}
                     dimMode={'transparent'}
                 >
+                    <DockBanner
+                        panelPosition={this.state.panelPosition}
+                    />
                     <Form role="search" className="container">
                         <FormGroup>
                             <h3>Search By Category</h3>
