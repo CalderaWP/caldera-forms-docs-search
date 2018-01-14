@@ -37,7 +37,7 @@ export class Post extends React.Component {
                                     className="entry-title"
                                 >
                                     <a
-                                        href={this.props.post.link}
+                                        href={this.url()}
                                         rel="bookmark"
                                     >
                                         <div dangerouslySetInnerHTML={this.createTitle()} />
