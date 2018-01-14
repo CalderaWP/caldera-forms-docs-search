@@ -815,6 +815,11 @@ class DocSearch extends React.Component {
 
                     {!this.state.loading &&
                     <div
+                        onClick={(event => {
+                            if(this.state.isPanelVisible){
+                                this.togglePanelVisible();
+                            }
+                        }).bind(this)}
                         className={'cf-doc-search-results-outer'}
                         style={
                             {
