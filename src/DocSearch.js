@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {debounce} from 'throttle-debounce';
-import {Form, FormGroup} from 'react-bootstrap';
+import {Form, FormGroup, Grid, Row, Col} from 'react-bootstrap';
 import {Catdera} from "./Components/Catdera";
 import {AddonCategory} from './Components/AddonCategory';
 import {Keyword} from "./Components/Keyword";
@@ -9,8 +9,7 @@ import {Results} from "./Components/Results";
 import {Pagination} from "./Components/Pagination";
 import {TopBar} from "./Components/TopBar";
 import {DockBanner} from "./Components/DockBanner";
-import Dock from 'react-dock';
-
+import {ToggleVisible} from "./Components/ToggleVisible";
 import ReactGA from 'react-ga';
 import {cacheAdapterEnhancer} from 'axios-extensions';
 import {Category} from "./Components/Category";
@@ -149,7 +148,7 @@ class DocSearch extends React.Component {
      * Handler for changes in panel size
      * @param panelSize
      */
-    panelSizeChange(panelSize){
+    panelSizeChange(panelSize) {
         let margin = 0;
         if (panelSize) {
             margin = 100;
@@ -161,10 +160,10 @@ class DocSearch extends React.Component {
                 margin = 100;
             }
         }
-        if(675 > this.state.width){
+        if (675 > this.state.width) {
             margin = 0;
         }
-        this.setState({contentMarginLeft:`${margin}%`});
+        this.setState({contentMarginLeft: `${margin}%`});
     }
 
     /**
@@ -172,12 +171,12 @@ class DocSearch extends React.Component {
      */
     updateWindowDimensions() {
         let position = 'left';
-        this.setState({ width: window.innerWidth, height: window.innerHeight });
-        if(675 > this.state.width){
+        this.setState({width: window.innerWidth, height: window.innerHeight});
+        if (675 > this.state.width) {
             position = 'bottom'
             this.panelSizeChange();
         }
-        this.setState({ panelPosition:position})
+        this.setState({panelPosition: position})
     }
 
     /**
@@ -451,7 +450,7 @@ class DocSearch extends React.Component {
         }
 
         //track to add to outgoing urls as utm_term=
-        this.setState({lastParams:params});
+        this.setState({lastParams: params});
 
         axios({
             method: 'get',
@@ -488,20 +487,20 @@ class DocSearch extends React.Component {
      *
      * Makes it open when it's closed or closed when its opened
      */
-    togglePanelVisible(){
-        if( this.state.isPanelVisible){
+    togglePanelVisible() {
+        if (this.state.isPanelVisible) {
             this.panelSizeChange(0);
             //this.setState({contentMarginLeft:'0%'});
-        }else{
+        } else {
             this.panelSizeChange(this.state.panelSize);
 
         }
-        this.setState({isPanelVisible: ! this.state.isPanelVisible});
+        this.setState({isPanelVisible: !this.state.isPanelVisible});
 
     }
 
     componentDidUpdate() {
-        if( 700 === this.state.width ){
+        if (700 === this.state.width) {
             this.updateWindowDimensions();
         }
     }
@@ -521,333 +520,335 @@ class DocSearch extends React.Component {
     render() {
         return (
             <div className="container">
-                <TopBar
+                <ToggleVisible
                     toggleOpen={this.togglePanelVisible}
                     isOpen={this.state.isPanelVisible}
                     lastParams={this.state.lastParams}
                 />
-                <Dock
-                    onSizeChange={this.panelSizeChange}
-                    position={this.state.panelPosition}
-                    isVisible={this.state.isPanelVisible}
-                    dimMode={'transparent'}
+                <Grid
+                    className={'sidebar'}
                 >
-                    <DockBanner
-                        panelPosition={this.state.panelPosition}
-                    />
-                    <Form role="search" className="container">
-                        <FormGroup>
-                            <h3>Search By Category</h3>
+                    <Row>
+                        {this.state.isPanelVisible &&
+                        <Col md={4}>
+                            <Form role="search" className="container">
+                                <FormGroup>
+                                    <h3>Search By Category</h3>
 
-                            <Category
-                                checked={this.state.boxesChecked['gettingStarted']}
-                                onChange={this.toggleGettingStarted}
-                                category={this.state.categories['gettingStarted']}
-                                label="Getting Started"
+                                    <Category
+                                        checked={this.state.boxesChecked['gettingStarted']}
+                                        onChange={this.toggleGettingStarted}
+                                        category={this.state.categories['gettingStarted']}
+                                        label="Getting Started"
 
-                            />
+                                    />
 
-                            <Category
-                                checked={this.state.boxesChecked['pro']}
-                                onChange={this.togglePro}
-                                category={this.state.categories['pro']}
-                                label="Caldera Forms Pro"
-                            />
+                                    <Category
+                                        checked={this.state.boxesChecked['pro']}
+                                        onChange={this.togglePro}
+                                        category={this.state.categories['pro']}
+                                        label="Caldera Forms Pro"
+                                    />
 
-                            <Category
-                                checked={this.state.boxesChecked['toggleFieldTypes']}
-                                onChange={this.toggleFieldTypes}
-                                category={this.state.categories['toggleFieldTypes']}
-                                label="Field Types"
-                            />
+                                    <Category
+                                        checked={this.state.boxesChecked['toggleFieldTypes']}
+                                        onChange={this.toggleFieldTypes}
+                                        category={this.state.categories['toggleFieldTypes']}
+                                        label="Field Types"
+                                    />
 
-                            <Category
-                                checked={this.state.boxesChecked['toggleShortcode']}
-                                onChange={this.toggleShortcode}
-                                category={this.state.categories['toggleShortcode']}
-                                label="Shortcode"
-                            />
+                                    <Category
+                                        checked={this.state.boxesChecked['toggleShortcode']}
+                                        onChange={this.toggleShortcode}
+                                        category={this.state.categories['toggleShortcode']}
+                                        label="Shortcode"
+                                    />
 
-                            <Category
-                                checked={this.state.boxesChecked['toggleEntries']}
-                                onChange={this.toggleEntries}
-                                category={this.state.categories['toggleEntries']}
-                                label="Entries"
-                            />
+                                    <Category
+                                        checked={this.state.boxesChecked['toggleEntries']}
+                                        onChange={this.toggleEntries}
+                                        category={this.state.categories['toggleEntries']}
+                                        label="Entries"
+                                    />
 
-                            <FormGroup>
-                                <Category
-                                    checked={this.state.boxesChecked['developerAPI']}
-                                    onChange={this.toggleDeveloperAPI}
-                                    category={this.state.categories['developerAPI']}
-                                    label="Developer API"
-                                />
-                                <Category
-                                    checked={this.state.boxesChecked['actions']}
-                                    onChange={this.toggleAction}
-                                    category={this.state.categories['actions']}
-                                    label="Actions"
-                                />
+                                    <FormGroup>
+                                        <Category
+                                            checked={this.state.boxesChecked['developerAPI']}
+                                            onChange={this.toggleDeveloperAPI}
+                                            category={this.state.categories['developerAPI']}
+                                            label="Developer API"
+                                        />
+                                        <Category
+                                            checked={this.state.boxesChecked['actions']}
+                                            onChange={this.toggleAction}
+                                            category={this.state.categories['actions']}
+                                            label="Actions"
+                                        />
 
-                                <Category
-                                    checked={this.state.boxesChecked['filters']}
-                                    onChange={this.toggleFilters}
-                                    category={this.state.categories['filters']}
-                                    label="Filters"
-                                />
+                                        <Category
+                                            checked={this.state.boxesChecked['filters']}
+                                            onChange={this.toggleFilters}
+                                            category={this.state.categories['filters']}
+                                            label="Filters"
+                                        />
 
-                            </FormGroup>
-                        </FormGroup>
+                                    </FormGroup>
+                                </FormGroup>
 
-                        <Keyword
-                            change={this.handleChangeKeyword}
-                            value={this.state.query.s}
-                        />
-
-                        <FormGroup controlId="add-on-search">
-                            <h3>Add-on Documentation</h3>
-                            <FormGroup>
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.mailChimp}
-                                    checked={this.state.addOnsChecked.mailChimp}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.mailChimp
-                                    )}
+                                <Keyword
+                                    change={this.handleChangeKeyword}
+                                    value={this.state.query.s}
                                 />
 
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.paypalExpress}
-                                    checked={this.state.addOnsChecked.paypalExpress}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.paypalExpress
-                                    )}
-                                />
+                                <FormGroup controlId="add-on-search">
+                                    <h3>Add-on Documentation</h3>
+                                    <FormGroup>
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.mailChimp}
+                                            checked={this.state.addOnsChecked.mailChimp}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.mailChimp
+                                            )}
+                                        />
 
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.stripe}
-                                    checked={this.state.addOnsChecked.stripe}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.stripe
-                                    )}
-                                />
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.paypalExpress}
+                                            checked={this.state.addOnsChecked.paypalExpress}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.paypalExpress
+                                            )}
+                                        />
 
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.authNet}
-                                    checked={this.state.addOnsChecked.authNet}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.authNet
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.braintree}
-                                    checked={this.state.addOnsChecked.braintree}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.braintree
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.entryLimiter}
-                                    checked={this.state.addOnsChecked.entryLimiter}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.entryLimiter
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.translations}
-                                    checked={this.state.addOnsChecked.translations}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.translations
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.users}
-                                    checked={this.state.addOnsChecked.users}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.users
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.zapier}
-                                    checked={this.state.addOnsChecked.zapier}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.zapier
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.styleCustomizer}
-                                    checked={this.state.addOnsChecked.styleCustomizer}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.styleCustomizer
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.connectedForms}
-                                    checked={this.state.addOnsChecked.connectedForms}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.connectedForms
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.googleAnalytics}
-                                    checked={this.state.addOnsChecked.googleAnalytics}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.googleAnalytics
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.edd}
-                                    checked={this.state.addOnsChecked.edd}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.edd
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.geolocation}
-                                    checked={this.state.addOnsChecked.geolocation}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.geolocation
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.runAction}
-                                    checked={this.state.addOnsChecked.runAction}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.runAction
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.convertKit}
-                                    checked={this.state.addOnsChecked.convertKit}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.convertKit
-                                    )}
-                                />
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.stripe}
+                                            checked={this.state.addOnsChecked.stripe}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.stripe
+                                            )}
+                                        />
 
 
-                            </FormGroup>
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.authNet}
+                                            checked={this.state.addOnsChecked.authNet}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.authNet
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.braintree}
+                                            checked={this.state.addOnsChecked.braintree}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.braintree
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.entryLimiter}
+                                            checked={this.state.addOnsChecked.entryLimiter}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.entryLimiter
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.translations}
+                                            checked={this.state.addOnsChecked.translations}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.translations
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.users}
+                                            checked={this.state.addOnsChecked.users}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.users
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.zapier}
+                                            checked={this.state.addOnsChecked.zapier}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.zapier
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.styleCustomizer}
+                                            checked={this.state.addOnsChecked.styleCustomizer}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.styleCustomizer
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.connectedForms}
+                                            checked={this.state.addOnsChecked.connectedForms}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.connectedForms
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.googleAnalytics}
+                                            checked={this.state.addOnsChecked.googleAnalytics}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.googleAnalytics
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.edd}
+                                            checked={this.state.addOnsChecked.edd}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.edd
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.geolocation}
+                                            checked={this.state.addOnsChecked.geolocation}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.geolocation
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.runAction}
+                                            checked={this.state.addOnsChecked.runAction}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.runAction
+                                            )}
+                                        />
+
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.convertKit}
+                                            checked={this.state.addOnsChecked.convertKit}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.convertKit
+                                            )}
+                                        />
 
 
-                            <FormGroup>
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.easyQueries}
-                                    checked={this.state.addOnsChecked.easyQueries}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.easyQueries
-                                    )}
-                                />
-
-                                <AddonCategory
-                                    apiRoot={this.state.apiRoot}
-                                    category={this.state.categories.easyPods}
-                                    checked={this.state.addOnsChecked.easyPods}
-                                    onChange={this.toggleAddon.bind(
-                                        null,
-                                        this.state.categories.easyPods)
-                                    }
-                                />
-
-                            </FormGroup>
-                        </FormGroup>
+                                    </FormGroup>
 
 
-                    </Form>
+                                    <FormGroup>
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.easyQueries}
+                                            checked={this.state.addOnsChecked.easyQueries}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.easyQueries
+                                            )}
+                                        />
 
-                </Dock>
+                                        <AddonCategory
+                                            apiRoot={this.state.apiRoot}
+                                            category={this.state.categories.easyPods}
+                                            checked={this.state.addOnsChecked.easyPods}
+                                            onChange={this.toggleAddon.bind(
+                                                null,
+                                                this.state.categories.easyPods)
+                                            }
+                                        />
 
-                <div
+                                    </FormGroup>
+                                </FormGroup>
 
-                >
-                    {this.state.loading &&
-                        <div className="loading">
-                            <Catdera
-                                width={'200px'}
-                                spin={true}
-                            />
-                            <p className="sr-only">Loading Search Results</p>
-                        </div>
-                    }
 
-                    {!this.state.loading &&
-                    <div
-                        onClick={(event => {
-                            if(this.state.isPanelVisible){
-                                this.togglePanelVisible();
-                            }
-                        }).bind(this)}
-                        //I promise the binding is neccasary to get clicks outside of panel to close panel. Fuck your "no-extra-bind" warning
-                        className={'cf-doc-search-results-outer'}
-                        style={
-                            {
-                                marginLeft:this.state.contentMarginLeft
-                            }
+                            </Form>
+                        </Col>
+
                         }
-                    >
-                        <Results
-                            apiRoot={this.props.apiRoot}
-                            posts={this.state.posts}
-                            lastParams={this.state.lastParams}
-                        />
+                        <Col md={this.state.isPanelVisible ? 8 : 12 }>
+                            <div
 
-                        <Pagination
-                            page={this.state.page}
-                            pages={this.state.totalPages}
-                            prevHandler={this.handlePrevPage}
-                            nextHandler={this.handleNextPage}
-                        />
-                    </div>
-                    }
+                            >
+                                {this.state.loading &&
+                                <div className="loading">
+                                    <Catdera
+                                        width={'200px'}
+                                        spin={true}
+                                    />
+                                    <p className="sr-only">Loading Search Results</p>
+                                </div>
+                                }
 
-                </div>
+                                {!this.state.loading &&
+                                <div
+                                    onClick={(event => {
+                                        if (this.state.isPanelVisible) {
+                                            this.togglePanelVisible();
+                                        }
+                                    }).bind(this)}
+                                    //I promise the binding is neccasary to get clicks outside of panel to close panel. Fuck your "no-extra-bind" warning
+                                    className={'cf-doc-search-results-outer'}
+
+                                >
+                                    <Results
+                                        apiRoot={this.props.apiRoot}
+                                        posts={this.state.posts}
+                                        lastParams={this.state.lastParams}
+                                    />
+
+                                    <Pagination
+                                        page={this.state.page}
+                                        pages={this.state.totalPages}
+                                        prevHandler={this.handlePrevPage}
+                                        nextHandler={this.handleNextPage}
+                                    />
+                                </div>
+                                }
+
+                            </div>
+
+                        </Col>
+
+                    </Row>
+
+                </Grid>
             </div>
-        )
+        );
     }
 }
-
 export default DocSearch;
+
+
+
