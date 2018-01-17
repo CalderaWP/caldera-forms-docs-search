@@ -19,3 +19,96 @@ img.catdera-logo.spin-loader {
 .cf-doc-search-nav {
   margin-top:70px;
 }
+
+#cf-docs-search-app .sidebar .container {
+	max-width: 100%;
+}
+
+#cf-docs-search-app .form-group {
+	margin: 0;
+}
+
+.cf-doc-search-results-outer .container {
+	max-width: 100%;
+}
+
+#cf-docs-search-app form[role=search] {
+	position: fixed;
+	left: 0;
+	top: 60px;
+	bottom: 0;
+	overflow-y: scroll;
+	width: 300px;
+	overflow-x: hidden;
+}
+
+#cf-docs-search-app form[role=search] > .form-group {
+	margin: 0 0 30px 0;
+}
+
+.cf-doc-search-sidebar-toggle {
+	background: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    padding: 12px 15px;
+    z-index: 1;
+    text-align: left;
+    font-size: 0.8em;
+}
+
+#cf-docs-search-app .form-group > h3 {
+	letter-spacing: 0;
+	margin: 0 0 1em;
+	text-transform: none;
+}
+
+#cf-docs-search-app .form-group .checkbox {
+	margin: 0 0 10px 0;
+	padding-left: 35px;
+	position: relative;
+	font-size: 0.8em;
+}
+
+#cf-docs-search-app .form-group input[type=checkbox] {
+	opacity: 1;
+	position: absolute;
+	left: 0;
+	top: 3px;
+	margin: 0;
+	border: 1px solid #ddd;
+	-webkit-appearance: none;
+	height: 20px;
+	width: 20px;
+}
+
+#cf-docs-search-app .form-group input[type=checkbox]:checked {
+	background: #a3bf61;
+	border-color: rgba(34,34,34,0.1);
+}
+
+.cf-doc-search-results-outer article {
+	border-bottom: 1px solid #ddd;
+	padding: 40px 0;
+}
+
+.cf-doc-search-results-outer article .entry-title {
+	letter-spacing: 0;
+	margin-bottom: 20px;
+}
+
+.cf-doc-search-results-outer article .btn {
+	float: left;
+	display: block;
+	margin-top: 20px;
+	width: auto;
+}
+
+.cf-doc-search-results-outer article p:last-child {
+	margin-bottom: 0;
+}
+
+.cf-doc-search-results-outer .col-xs-12:last-child {
+	clear: both;
+}

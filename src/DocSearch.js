@@ -532,6 +532,10 @@ class DocSearch extends React.Component {
                         {this.state.isPanelVisible &&
                         <Col md={4}>
                             <Form role="search" className="container">
+                            	<Keyword
+                                    change={this.handleChangeKeyword}
+                                    value={this.state.query.s}
+                                />
                                 <FormGroup>
                                     <h3>Search By Category</h3>
 
@@ -594,11 +598,6 @@ class DocSearch extends React.Component {
 
                                     </FormGroup>
                                 </FormGroup>
-
-                                <Keyword
-                                    change={this.handleChangeKeyword}
-                                    value={this.state.query.s}
-                                />
 
                                 <FormGroup controlId="add-on-search">
                                     <h3>Add-on Documentation</h3>
