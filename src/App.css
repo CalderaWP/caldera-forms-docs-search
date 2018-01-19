@@ -20,26 +20,54 @@ img.catdera-logo.spin-loader {
   margin-top:70px;
 }
 
-#cf-docs-search-app .sidebar .container {
-	max-width: 100%;
-}
-
 #cf-docs-search-app .form-group {
 	margin: 0;
 }
 
-.cf-doc-search-results-outer .container {
-	max-width: 100%;
+.cf-doc-main-row {
+    padding-left: 0;
+    margin-right: 0;
+    margin-left: 0;
 }
 
-#cf-docs-search-app form[role=search] {
-	position: fixed;
-	left: 0;
-	top: 60px;
-	bottom: 0;
-	overflow-y: scroll;
-	width: 300px;
-	overflow-x: hidden;
+.cf-doc-main-row .col-md-12 {
+	padding: 20px;
+}
+
+#cf-docs-search-app .cf-doc-filter-col {
+    background: rgba(255,255,255,0.9);
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-width: 400px;
+    width: 100%;
+    z-index: 1;
+    padding-top: 60px;
+}
+
+.cf-doc-filter-col + .col-md-8 {
+	padding: 20px;
+    width: 100%;
+}
+
+.cf-doc-filter-col .nav-tabs {
+	margin-bottom: 15px;
+}
+
+.cf-doc-filter-col .nav-tabs > li > a {
+	font-size: 0.8em;
+	margin-right: 0;
+}
+
+@media screen and ( min-width: 1024px ) {
+	
+	.cf-doc-filter-col + .col-md-8 {
+	    padding-left: 420px;
+	}
+	
 }
 
 #cf-docs-search-app form[role=search] > .form-group {
@@ -47,15 +75,16 @@ img.catdera-logo.spin-loader {
 }
 
 .cf-doc-search-sidebar-toggle {
-	background: none;
+    background: rgba(255,255,255,0.9);
     position: fixed;
     left: 0;
     top: 0;
-    width: 300px;
+    width: 380px;
     padding: 12px 15px;
     z-index: 1;
     text-align: left;
     font-size: 0.8em;
+    z-index: 2;
 }
 
 #cf-docs-search-app .form-group > h3 {
@@ -88,9 +117,37 @@ img.catdera-logo.spin-loader {
 	border-color: rgba(34,34,34,0.1);
 }
 
+.cf-doc-search-results-outer > div > div {
+	padding: 0 0 20px 0;
+}
+
+@media screen and ( min-width: 1280px ) {
+	
+	.cf-doc-search-results-outer > div {
+		margin-left: -10px;
+		margin-right: -10px;
+	}
+	
+	.cf-doc-search-results-outer > div > div {
+		float: left;
+		padding: 0 10px 20px;
+		width: 50%;
+	}
+	
+}
+
+.cf-doc-search-results-outer > div > div:nth-child(2n+1) {
+	clear: both;
+}
+
 .cf-doc-search-results-outer article {
-	border-bottom: 1px solid #ddd;
-	padding: 40px 0;
+	border: 1px solid #ddd;
+	padding: 30px;
+}
+
+.cf-doc-search-results-outer .container {
+	max-width: 100%;
+	width: 100%;
 }
 
 .cf-doc-search-results-outer article .entry-title {
@@ -111,4 +168,9 @@ img.catdera-logo.spin-loader {
 
 .cf-doc-search-results-outer .col-xs-12:last-child {
 	clear: both;
+}
+
+.cf-doc-search-results-outer .pager {
+	clear: both;
+	padding: 20px;
 }
