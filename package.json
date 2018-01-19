@@ -21,7 +21,7 @@
     "deploy-staging": "npm run predeploy && npm run dist",
     "deploy": "npm run predeploy && npm run surge && npm run gh",
     "gh": "gh-pages -d build",
-    "dist" : "node create-dist.js"
+    "dist": "node create-dist.js"
   },
   "devDependencies": {
     "axios": "^0.17.1",
@@ -30,6 +30,7 @@
     "gh-pages": "^1.1.0",
     "lodash.findkey": "^4.6.0",
     "path": "^0.12.7",
+    "querystring": "^0.2.0",
     "react-ga": "^2.4.1",
     "react-onclickoutside": "^6.7.0",
     "recursive-copy": "^2.0.8"
