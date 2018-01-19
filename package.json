@@ -18,6 +18,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "surge": "surge --domain=caldera-forms-doc-search.surge.sh --project=/Users/josh/sites/caldera-dev/cf-docs-search/build",
+    "surge-staging": "surge --domain=staging-caldera-forms-doc-search.surge.sh --project=/Users/josh/sites/caldera-dev/cf-docs-search/build",
+    "deploy-staging": "npm run predeploy && npm run surge surge-staging",
     "deploy": "npm run predeploy && npm run surge && npm run gh",
     "gh": "gh-pages -d build"
   },
