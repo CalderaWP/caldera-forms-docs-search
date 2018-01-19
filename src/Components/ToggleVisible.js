@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, Nav, NavItem, Glyphicon, Button} from 'react-bootstrap';
+import {Glyphicon} from 'react-bootstrap';
 
 export class ToggleVisible extends React.Component {
     constructor(props) {
