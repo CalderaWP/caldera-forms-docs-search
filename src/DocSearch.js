@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {debounce} from 'throttle-debounce';
-import {Form, FormGroup, Row, Col, Tabs, TabList, TabPanel} from 'react-bootstrap';
+import {Form, FormGroup, Row, Col, Tabs, Tab} from 'react-bootstrap';
 import {Catdera} from "./Components/Catdera";
 import {AddonCategory} from './Components/AddonCategory';
 import {Keyword} from "./Components/Keyword";

@@ -10,31 +10,37 @@ const options = {
     junk: true,
     filter: [
         '**/*',
-        '!.DS_Store'
+        '!.DS_Store',
 
     ],
     rename:(filePath) => {
         let dotSplit = filePath.split('.');
-        if( 'css/main' === dotSplit[0] || 'js/main' ===dotSplit[0]){
-            filePath = filePath.replace( `${dotSplit[1]}.`, '' );
-        }
+        filePath = filePath.replace( `${dotSplit[1]}.`, '' );
         return filePath;
     },
 };
 
 const buildPath = `./dist`;
 const staticPath = './build/static';
-copy(staticPath, buildPath, options)
-    .then(function(results) {
 
-    })
+
+copy(`${staticPath}/js/`, `${staticPath}/dist`, options)
     .catch(function(error) {
-        console.error('Copy failed (dist):  ' + error);
+    console.error('Copy failed ({staticPath}/js/):  ' + error);
+});
+
+copy(`${staticPath}/css/`, `${staticPath}/dist`, options)
+    .catch(function(error) {
+        console.error('Copy failed ({staticPath}/css/):  ' + error);
     });
 
-copy(staticPath, `${staticPath}/dist`, options)
+
+copy(`${staticPath}/css/` , buildPath, options)
     .catch(function(error) {
-        console.error('Copy failed (static dist): ' + error);
+        console.error('Copy failed ({staticPath}/css/):  ' + error);
     });
 
-
+copy(`${staticPath}/js/` , buildPath, options)
+    .catch(function(error) {
+        console.error('Copy failed ({staticPath}/js/):  ' + error);
+    });
