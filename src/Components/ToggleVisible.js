@@ -44,7 +44,7 @@ export class ToggleVisible extends React.Component {
         return (
             <button
                 className={'cf-doc-search-sidebar-toggle'}
-                eventKey={1}
+                eventkey={1}
                 title={this.title()}
                 onClick={this.props.toggleOpen}
             >
