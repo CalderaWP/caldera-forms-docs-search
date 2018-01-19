@@ -526,7 +526,7 @@ class DocSearch extends React.Component {
                 />
                 <Row className="cf-doc-main-row">
                     {this.state.isPanelVisible &&
-                    <Col className="col-md-4 cf-doc-filter-col">
+                    <Col md={'4'} className="cf-doc-filter-col">
                         <Form role="search" className="cf-doc-filter-form">
                         	<Tabs defaultActiveKey={1} id="cf-doc-filters">
 								<Tab eventKey={1} title="Category">
