@@ -16,10 +16,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && npm run dist",
     "surge": "surge --domain=caldera-forms-doc-search.surge.sh --project=/Users/josh/sites/caldera-dev/cf-docs-search/build",
-    "surge-staging": "surge --domain=staging-caldera-forms-doc-search.surge.sh --project=/Users/josh/sites/caldera-dev/cf-docs-search/build",
-    "deploy-staging": "npm run predeploy && npm run surge surge-staging",
+    "deploy-staging": "npm run predeploy && npm run dist",
     "deploy": "npm run predeploy && npm run surge && npm run gh",
     "gh": "gh-pages -d build",
     "dist" : "node create-dist.js"
