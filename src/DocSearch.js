@@ -29,6 +29,7 @@ class DocSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeTabKey: 1,
             isPanelVisible: true,
             panelPosition: 'left',
             panelSize: 0.33,
@@ -41,10 +42,7 @@ class DocSearch extends React.Component {
             posts: POSTS,
             page: 1,
             totalPages: 1,
-            query: {
-                s: '',
-                categories: []
-            },
+            searchKeyword: '',
             boxesChecked: {
                 actions: false,
                 addOns: false,
@@ -142,6 +140,9 @@ class DocSearch extends React.Component {
         this.togglePanelVisible = this.togglePanelVisible.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.panelSizeChange = this.panelSizeChange.bind(this);
+
+        this.handleTabSelect = this.handleTabSelect.bind(this);
+
     }
 
     /**
@@ -214,10 +215,8 @@ class DocSearch extends React.Component {
      * @param event
      */
     handleChangeKeyword(event) {
+        this.setState({searchKeyword: event.target.value});
         this.setPageOne();
-        let q = this.state.query;
-        q.s = event.target.value;
-        this.setState({query: q});
         this.search();
     }
 
@@ -406,14 +405,14 @@ class DocSearch extends React.Component {
             page: this.state.page
         };
 
-        if (this.state.query.s) {
-            params['s'] = this.state.query.s;
+        if (this.state.searchKeyword) {
+            params['search'] = this.state.searchKeyword;
             let event = {
                 category: 'Documentation Search',
                 action: 'Documentation Search Keyword',
-                label: params['s']
-
+                label: params['search']
             };
+
             ReactGA.event(event);
         }
 
@@ -490,13 +489,47 @@ class DocSearch extends React.Component {
     togglePanelVisible() {
         if (this.state.isPanelVisible) {
             this.panelSizeChange(0);
-            //this.setState({contentMarginLeft:'0%'});
         } else {
             this.panelSizeChange(this.state.panelSize);
 
         }
         this.setState({isPanelVisible: !this.state.isPanelVisible});
 
+    }
+
+    /**
+     * Resets search when tab is clicked
+     *
+     * @param key
+     */
+    handleTabSelect(key){
+        //1 = categories
+        //2 = keyword
+        //3 = add-ons
+        if( 2 !== key ){
+            this.setState({searchKeyword: ''} );
+        }else{
+            if( this.state.lastParams.search ){
+                this.setState({searchKeyword: this.state.lastParams.search} );
+            }else{
+                this.setState({searchKeyword: 'css'} );
+            }
+        }
+
+        let boxesChecked = this.state.boxesChecked;
+        Object.keys(boxesChecked).forEach((addOn) => {
+            boxesChecked[addOn] = false;
+        });
+
+        if( 1 === key ){
+            boxesChecked.gettingStarted = true;
+        }
+
+        this.toggleAllAddonsOff();
+
+        this.setState({activeTabKey:key});
+        this.setPageOne();
+        this.search();
     }
 
     componentDidUpdate() {
@@ -527,10 +560,23 @@ class DocSearch extends React.Component {
                 />
                 <Row className="cf-doc-main-row">
                     {this.state.isPanelVisible &&
-                    <Col className="col-md-4 cf-doc-filter-col">
-                        <Form role="search" className="cf-doc-filter-form">
-                        	<Tabs defaultActiveKey={1} id="cf-doc-filters">
-								<Tab eventKey={1} title="Category">
+                    <Col
+                        className="cf-doc-filter-col"
+                        md={'4'}
+                    >
+                        <Form
+                            role="search"
+                            className="cf-doc-filter-form"
+                        >
+                        	<Tabs
+                                defaultActiveKey={1}
+                                id="cf-doc-filters"
+                                activeKey={this.state.activeTabKey}
+                                onSelect={this.handleTabSelect}
+                            >
+								<Tab
+                                    eventKey={1}
+                                    title="Category">
 									<FormGroup>
 		                                <h3>Search By Category</h3>
 		
@@ -594,13 +640,19 @@ class DocSearch extends React.Component {
 		                                </FormGroup>
 		                            </FormGroup>
 								</Tab>
-								<Tab eventKey={2} title="Keyword">
+								<Tab
+                                    eventKey={2}
+                                    title="Keyword"
+                                >
 									<Keyword
 		                                change={this.handleChangeKeyword}
-		                                value={this.state.query.s}
+		                                value={this.state.searchKeyword}
 		                            />
 								</Tab>
-								<Tab eventKey={3} title="Add-ons">
+								<Tab
+                                    eventKey={3}
+                                    title="Add-ons"
+                                >
 									<FormGroup controlId="add-on-search">
 		                                <h3>Add-on Documentation</h3>
 		                                <FormGroup>
