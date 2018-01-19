@@ -15,13 +15,8 @@ img.catdera-logo.spin-loader {
 .cf-doc-search-sidebar-toggle {
     background: rgba(255,255,255,0.9);
     font-size: 16px;
-    left: 0;
     padding: 12px 15px;
-    position: fixed;
     text-align: left;
-    top: 0;
-    width: 380px;
-    z-index: 2;
 }
 
 .cf-doc-search-sidebar-toggle span.description {
@@ -39,17 +34,8 @@ img.catdera-logo.spin-loader {
 }
 
 .cf-doc-filter-col {
-    background: rgba(255,255,255,0.9);
-    bottom: 0;
-    left: 0;
-    max-width: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding-top: 60px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1;
 }
 
 .cf-doc-main-row .form-group {
@@ -96,11 +82,6 @@ img.catdera-logo.spin-loader {
 
 .cf-doc-main-row .col-md-12 {
 	padding: 20px;
-}
-
-.cf-doc-filter-col + .col-md-8 {
-	padding: 20px;
-    width: 100%;
 }
 
 .cf-doc-filter-col .nav-tabs {
@@ -169,22 +150,9 @@ img.catdera-logo.spin-loader {
 	
 }
 
-@media screen and ( min-width: 1024px ) {
-	
-	.cf-doc-filter-col + .col-md-8 {
-	    padding-left: 420px;
-	}
-	
-}
-
 @media screen and ( min-width: 1280px ) {
 	
-	.cf-doc-search-results-outer > div {
-		margin-left: -10px;
-		margin-right: -10px;
-	}
-	
-	.cf-doc-search-results-outer > div > div {
+	.col-md-12 .cf-doc-search-results-outer > div > div {
 		float: left;
 		padding: 0 10px 20px;
 		width: 50%;
