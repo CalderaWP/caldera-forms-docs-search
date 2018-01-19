@@ -1,14 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import {debounce} from 'throttle-debounce';
-import {Form, FormGroup, Grid, Row, Col, Tab, Tabs, TabList, TabPanel} from 'react-bootstrap';
+import {Form, FormGroup, Row, Col, Tab, Tabs} from 'react-bootstrap';
 import {Catdera} from "./Components/Catdera";
 import {AddonCategory} from './Components/AddonCategory';
 import {Keyword} from "./Components/Keyword";
 import {Results} from "./Components/Results";
 import {Pagination} from "./Components/Pagination";
-import {TopBar} from "./Components/TopBar";
-import {DockBanner} from "./Components/DockBanner";
 import {ToggleVisible} from "./Components/ToggleVisible";
 import ReactGA from 'react-ga';
 import {cacheAdapterEnhancer} from 'axios-extensions';
@@ -562,7 +560,7 @@ class DocSearch extends React.Component {
                     {this.state.isPanelVisible &&
                     <Col
                         className="cf-doc-filter-col"
-                        md={'4'}
+                        md={4}
                     >
                         <Form
                             role="search"
