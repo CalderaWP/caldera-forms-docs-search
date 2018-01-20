@@ -24,6 +24,15 @@ const options = {
 const distPath = `./dist`;
 const staticPath = './build/static';
 
+if (!fs.existsSync(distPath)){
+    fs.mkdirSync(distPath);
+}
+
+if (!fs.existsSync(`${staticPath}/dist`)){
+    fs.mkdirSync(`${staticPath}/dist`);
+}
+
+
 const deleteFilesInDir = (directory) => {
     fs.readdir(directory, (err, files) => {
         if (err) throw err;
