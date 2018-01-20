@@ -1,5 +1,5 @@
 # Caldera Forms Documentation Search
-[http://calderalabs.org/caldera-forms-docs-search/](http://calderalabs.org/caldera-forms-docs-search/)
+[https://calderaforms.com/caldera-forms-documentation-search/](https://calderaforms.com/caldera-forms-documentation-search/)
 
 ## Install
 * `git clone git@github.com:CalderaWP/caldera-forms-docs-search.git`
@@ -8,13 +8,17 @@
 # Development
 * `npm run start`
 
-# Deploy
-* `npm run deploy`
+# Deployment For CF.com 
 
-__IMPORTANT__ : Right now, deployment will break the embedded version on CalderaForms.com for 0-599 seconds.
 
-Solutions: 
-* Figure out how to make the url for the js file not dynamic, that way CalderaForms.com wouldn't have to query/cache manifest file.
-* Increment `CALDERA_FORMS_CHILD_THEME_VERSION` in the child theme and do a complete deploy through Pantheon.
-* Not worry too hard, since Pantheon should be serving a cached version. Still...
- 
+### Production
+* The master branch's /dist files are served on CF.com if it is the live environment.
+
+## Staging
+* The develop branch's /dist files are served on CF.com unless it is the live environment.
+* They are served using [RawGit](https://rawgit.com/) as CDN.
+* According to raw git "New changes you push to GitHub will be reflected within minutes."
+
+### Deploy to staging
+* `npm run predeploy && npm run dist && git push origin develop`
+    *  You may need to use `sudo`

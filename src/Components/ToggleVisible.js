@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, Nav, NavItem, Glyphicon, Button} from 'react-bootstrap';
+import {Glyphicon} from 'react-bootstrap';
 
 export class ToggleVisible extends React.Component {
     constructor(props) {
@@ -44,7 +44,6 @@ export class ToggleVisible extends React.Component {
         return (
             <button
                 className={'cf-doc-search-sidebar-toggle'}
-                eventKey={1}
                 title={this.title()}
                 onClick={this.props.toggleOpen}
             >
